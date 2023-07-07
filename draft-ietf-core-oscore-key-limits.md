@@ -49,6 +49,7 @@ normative:
 
 informative:
   RFC7519:
+  RFC7959:
   I-D.irtf-cfrg-aead-limits:
 
 entity:
@@ -140,6 +141,7 @@ When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v,
 ~~~~~~~~~~~
 {: #l-values-as-bytes title="Maximum length of each message (in bytes)" artwork-align="center"}
 
+With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering that a typical MTU size is 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
 
 ## Additional Information in the Security Context # {#context}
 
