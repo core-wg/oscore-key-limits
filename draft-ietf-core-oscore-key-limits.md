@@ -280,6 +280,18 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
+## Version -00 to -01 ## {#sec-00-01}
+
+* Extended discussion on setting the lifetime of OSCORE Security Contexts.
+
+* Mention adjusting the 'q' and 'v' values to compensate for a larger 'l' value.
+
+* Specify how to perform pre-calculation of message size to determine need for block-wise.
+
+* Cover exceptional cases where the 'l' value needs to be larger than 2^8.
+
+* Note on relevance of 'l' limit considering maximum block size and typical MTU.
+
 ## Version -00 ## {#sec-00}
 
 * Editorial improvements.
