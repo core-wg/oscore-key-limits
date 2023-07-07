@@ -145,23 +145,23 @@ When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v,
 
 With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering a typical MTU size of 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
 
-However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise tranfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take advantage of BERT functionality it becomes essential to opt for a higher value of 'l'. Thus accommodating the larger data chunks that can be used for BERT Block-Wise transfers.
+However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise tranfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take full advantage of BERT functionality and the large message sizes it allows for, the OSCORE peers must use higher values of 'l'.
 
-An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the size of 'q' and 'v', considering the new value of 'l', to ensure an acceptably low value of the IA and CA probabilities. A reasonable target for the IA and CA probabilities values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
+An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the value of 'q' and 'v' considering the new value of 'l', to ensure an acceptably low value of the IA and CA probabilities. A reasonable target for the IA and CA probability values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
 
 ## Additional Information in the Security Context # {#context}
 
-In addition to what defined in {{Section 3.1 of RFC8613}}, the following parameters, associated to an OSCORE Security Context, can be used for keeping track of expiration of an OSCORE Security Context and maintaining key usage below safe limits.
+In addition to what is defined in {{Section 3.1 of RFC8613}}, the following parameters associated with a OSCORE Security Context can be used for keeping track of the expiration of that OSCORE Security Context and maintaining key usage below safe limits.
 
 ### Common Context # {#common-context}
 
 The Common Context has the following associated parameter.
 
-* 'exp': with value the expiration time of the OSCORE Security Context, as a non-negative integer. The parameter contains a numeric value representing the number of seconds from 1970-01-01T00:00:00Z UTC until the specified UTC date/time, ignoring leap seconds, analogous to what specified for NumericDate in {{Section 2 of RFC7519}}.
+* 'exp': with value the expiration time of the OSCORE Security Context, as a non-negative integer. The parameter contains a numeric value representing the number of seconds from 1970-01-01T00:00:00Z UTC until the specified UTC date/time, ignoring leap seconds, analogous to what is specified for NumericDate in {{Section 2 of RFC7519}}.
 
-   At the time indicated in this field, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the Sender Key should no longer be used for protecting outgoing messages, and the Recipient Key should no longer be used for unprotecting incoming messages.
+   At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.
 
-   The value of 'exp' must be set at the point in time when the OSCORE Security Context is installed. Specifically, the value of 'exp' is determined by denoting as time t\_1 the current time, and determining a specified lifetime value t\_l. The lifetime value may be set as a default parameter (potentially differing between the peers sharing the OSCORE Security Context), or alternatively be arranged in-band during the establishment of the OSCORE Security Context. For instance, this synchronization may be defined in an OSCORE LwM2M object, or incorporated within an EDHOC Application Profile {{I-D.ietf-lake-edhoc}}, which is utilized in the process of performing an EDHOC execution between the peers. Regardless of how the lifetime value is determined, the 'exp' parameters is set to the value of t\_1 added together with t\_l, that is simply adding the current time with the intended lifetime.
+   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{I-D.ietf-lake-edhoc}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t\_1 offset by t\_l.
 
 ### Sender Context # {#sender-context}
 
@@ -185,21 +185,27 @@ The Recipient Context has the following associated parameters.
 
    The value of 'limit_v' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit_v' is determined according to {{limits}}.
 
-## OSCORE Messages Processing #
+## OSCORE Message Processing #
 
-In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, the processing of OSCORE messages is extended as defined in this section. A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message may not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
+In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.
 
-If OSCORE peers are required to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split the larger payload into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message: 1. The CoAP message, which the peer intends to transmit, should first be produced. 2. Next, the sum of the total size of the COSE plaintext, the length of the authentication tag, and the length of any potential ciphertext padding should be computed to produce a value T. It should be noted that the size of the padding and the length of the authentication tag depends on the AEAD algorithm in use. 3. If the resulting value of T exceeds the designated 'l' value for the given algorithm, block-wise transfer is to be applied to the message in question. Thus, splitting it into small chunks and allowing for transmission of large messages without exceeding the 'l' limit.
+A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
 
-By adhering to the steps outlined above, OSCORE peers can ensure the appropriate use of block-wise transfers, effectively managing message sizes that would otherwise exceed algorithm limits.
+If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split the whole, large content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
 
-In particular, the processing of OSCORE messages follows the steps outlined in {{Section 8 of RFC8613}}, with the additions defined below.
+1. The CoAP message to transmit is first produced.
+
+2. The sum of the total size of the COSE plaintext, the length of the authentication tag, and the length of any potential ciphertext padding should be computed to produce a value T. It should be noted that the size of the padding and the length of the authentication tag depend on the used AEAD algorithm.
+
+3. If the value of T exceeds the 'l' value for the used AEAD algorithm, block-wise transfer is to be used with the CoAP message before protecting it with OSCORE.
+
+The processing of CoAP messages with OSCORE follows the steps outlined in {{Section 8 of RFC8613}}, with the additions defined below.
 
 ### Protecting a Request or a Response ## {#protecting-req-resp}
 
 Before encrypting the COSE object using the Sender Key, the 'count_q' counter is incremented.
 
-If 'count_q' exceeds the 'limit_q' limit, the message processing is aborted. From then on, the Sender Key must not be used to encrypt further messages.
+If 'count\_q' exceeds the 'limit\_q' limit, the message processing is aborted. From then on, the Sender Key must not be used to encrypt further messages.
 
 ### Verifying a Request or a Response ## {#verifying-req-resp}
 
@@ -207,7 +213,7 @@ If an incoming message is detected to be a replay (see {{Section 7.4 of RFC8613}
 
 If the decryption and verification of the COSE object using the Recipient Key fails, the 'count_v' counter is incremented.
 
-After 'count_v' has exceeded the 'limit_v' limit, incoming messages must not be decrypted and verified using the Recipient Key, and their processing must be aborted.
+After 'count\_v' has exceeded the 'limit\_v' limit, incoming messages must not be decrypted and verified using the Recipient Key, and their processing must be aborted.
 
 # Security Considerations
 
