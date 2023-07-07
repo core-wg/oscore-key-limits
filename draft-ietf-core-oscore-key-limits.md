@@ -143,7 +143,7 @@ When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v,
 ~~~~~~~~~~~
 {: #l-values-as-bytes title="Maximum length of each message (in bytes)" artwork-align="center"}
 
-With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering that a typical MTU size is 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
+With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering a typical MTU size of 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
 
 However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise tranfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take advantage of BERT functionality it becomes essential to opt for a higher value of 'l'. Thus accommodating the larger data chunks that can be used for BERT Block-Wise transfers.
 
