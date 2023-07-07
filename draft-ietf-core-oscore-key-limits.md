@@ -146,6 +146,8 @@ With regards to the limit for 'l', the recommended 'l' value for the algorithms 
 
 However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise tranfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take advantage of BERT functionality it becomes essential to opt for a higher value of 'l'. Thus accommodating the larger data chunks that can be used for BERT Block-Wise transfers.
 
+An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the size of 'q' and 'v', considering the new value of 'l', to ensure an acceptably low value of the IA and CA probabilities. A reasonable target for the IA and CA probabilities values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
+
 ## Additional Information in the Security Context # {#context}
 
 In addition to what defined in {{Section 3.1 of RFC8613}}, the following parameters, associated to an OSCORE Security Context, can be used for keeping track of expiration of an OSCORE Security Context and maintaining key usage below safe limits.
