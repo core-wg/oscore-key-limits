@@ -182,7 +182,11 @@ The Recipient Context has the following associated parameters.
 
 ## OSCORE Messages Processing #
 
-In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, the processing of OSCORE messages is extended as defined in this section. A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message may not exceed the block size for the selected algorithm multiplied with 'l‘.
+In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, the processing of OSCORE messages is extended as defined in this section. A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message may not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
+
+If OSCORE peers are required to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split the larger payload into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message: 1. The CoAP message, which the peer intends to transmit, should first be produced. 2. Next, the sum of the total size of the COSE plaintext, the length of the authentication tag, and the length of any potential ciphertext padding should be computed to produce a value T. It should be noted that the size of the padding and the length of the authentication tag depends on the AEAD algorithm in use. 3. If the resulting value of T exceeds the designated 'l' value for the given algorithm, block-wise transfer is to be applied to the message in question. Thus, splitting it into small chunks and allowing for transmission of large messages without exceeding the 'l' limit.
+
+By adhering to the steps outlined above, OSCORE peers can ensure the appropriate use of block-wise transfers, effectively managing message sizes that would otherwise exceed algorithm limits.
 
 In particular, the processing of OSCORE messages follows the steps outlined in {{Section 8 of RFC8613}}, with the additions defined below.
 
