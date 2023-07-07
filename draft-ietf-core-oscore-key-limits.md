@@ -52,6 +52,7 @@ informative:
   RFC7959:
   RFC8323:
   I-D.irtf-cfrg-aead-limits:
+  I-D.ietf-lake-edhoc:
 
 entity:
   SELF: "[RFC-XXXX]"
@@ -158,7 +159,9 @@ The Common Context has the following associated parameter.
 
 * 'exp': with value the expiration time of the OSCORE Security Context, as a non-negative integer. The parameter contains a numeric value representing the number of seconds from 1970-01-01T00:00:00Z UTC until the specified UTC date/time, ignoring leap seconds, analogous to what specified for NumericDate in {{Section 2 of RFC7519}}.
 
-   At the time indicated in this field, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer.
+   At the time indicated in this field, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the Sender Key should no longer be used for protecting outgoing messages, and the Recipient Key should no longer be used for unprotecting incoming messages.
+
+   The value of 'exp' must be set at the point in time when the OSCORE Security Context is installed. Specifically, the value of 'exp' is determined by denoting as time t\_1 the current time, and determining a specified lifetime value t\_l. The lifetime value may be set as a default parameter (potentially differing between the peers sharing the OSCORE Security Context), or alternatively be arranged in-band during the establishment of the OSCORE Security Context. For instance, this synchronization may be defined in an OSCORE LwM2M object, or incorporated within an EDHOC Application Profile {{I-D.ietf-lake-edhoc}}, which is utilized in the process of performing an EDHOC execution between the peers. Regardless of how the lifetime value is determined, the 'exp' parameters is set to the value of t\_1 added together with t\_l, that is simply adding the current time with the intended lifetime.
 
 ### Sender Context # {#sender-context}
 
