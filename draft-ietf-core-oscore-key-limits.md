@@ -11,7 +11,7 @@ ipr: trust200902
 area: Internet
 wg: CoRE Working Group
 kw: Internet-Draft
-cat: std
+cat: info
 submissiontype: IETF
 
 coding: utf-8
