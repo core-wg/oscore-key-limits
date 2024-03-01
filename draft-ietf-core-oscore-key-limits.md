@@ -286,6 +286,10 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 RFC EDITOR: PLEASE REMOVE THIS SECTION.
 
+## Version -01 to -02 ## {#sec-01-02}
+
+* Updated references
+
 ## Version -00 to -01 ## {#sec-00-01}
 
 * Extended discussion on setting the lifetime of OSCORE Security Contexts.
