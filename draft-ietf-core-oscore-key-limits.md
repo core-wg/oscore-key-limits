@@ -47,7 +47,7 @@ informative:
   RFC7959:
   RFC8323:
   I-D.irtf-cfrg-aead-limits:
-  I-D.ietf-lake-edhoc:
+  RFC9528:
 
 entity:
   SELF: "[RFC-XXXX]"
@@ -156,7 +156,7 @@ The Common Context has the following associated parameter.
 
    At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.
 
-   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{I-D.ietf-lake-edhoc}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t\_1 offset by t\_l.
+   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{RFC9528}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t\_1 offset by t\_l.
 
 ### Sender Context # {#sender-context}
 
