@@ -15,11 +15,6 @@ cat: info
 submissiontype: IETF
 
 coding: utf-8
-pi:    # can use array (if all yes) or hash here
-
-  toc: yes
-  sortrefs:   # defaults to yes
-  symrefs: yes
 
 author:
       -
@@ -284,11 +279,15 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 # Document Updates # {#sec-document-updates}
 
-RFC EDITOR: PLEASE REMOVE THIS SECTION.
+{:removeinrfc}
+
+## Version -02 to -03 ## {#sec-02-03}
+
+* Editorial improvements.
 
 ## Version -01 to -02 ## {#sec-01-02}
 
-* Updated references
+* Updated references.
 
 ## Version -00 to -01 ## {#sec-00-01}
 
@@ -315,7 +314,7 @@ RFC EDITOR: PLEASE REMOVE THIS SECTION.
 * Split out material from Key Update for OSCORE draft into this new document.
 
 # Acknowledgments # {#acknowledgments}
-{: numbered="no"}
+{:numbered="false"}
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Carsten Bormann}}}, {{{John Preuß Mattsson}}}, {{{Göran Selander}}} and {{{Rafa Marin-Lopez}}} for their feedback and comments.
 
