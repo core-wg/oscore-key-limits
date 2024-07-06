@@ -1347,7 +1347,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-2.2.1-2.1.2">
 At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.<a href="#section-2.2.1-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-2.1.3">
-The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t_1, considering a lifetime value t_l. In particular, t_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile <span>[<a href="#I-D.ietf-lake-edhoc" class="cite xref">I-D.ietf-lake-edhoc</a>]</span> used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t_1 offset by t_l.<a href="#section-2.2.1-2.1.3" class="pilcrow">¶</a></p>
+The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t_1, considering a lifetime value t_l. In particular, t_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t_1 offset by t_l.<a href="#section-2.2.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1486,10 +1486,6 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-lake-edhoc">[I-D.ietf-lake-edhoc]</dt>
-        <dd>
-<span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Mattsson, J. P.</span>, and <span class="refAuthor">F. Palombini</span>, <span class="refTitle">"Ephemeral Diffie-Hellman Over COSE (EDHOC)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lake-edhoc-23</span>, <time datetime="2024-01-22" class="refDate">22 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lake-edhoc-23">https://datatracker.ietf.org/doc/html/draft-ietf-lake-edhoc-23</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
 <span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-08</span>, <time datetime="2024-04-01" class="refDate">1 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-08">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-08</a>&gt;</span>. </dd>
@@ -1503,8 +1499,12 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">Z. Shelby, Ed.</span>, <span class="refTitle">"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7959</span>, <span class="seriesInfo">DOI 10.17487/RFC7959</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7959">https://www.rfc-editor.org/rfc/rfc7959</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8323">[RFC8323]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Lemay, S.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Hartke, K.</span>, <span class="refAuthor">Silverajan, B.</span>, and <span class="refAuthor">B. Raymor, Ed.</span>, <span class="refTitle">"CoAP (Constrained Application Protocol) over TCP, TLS, and WebSockets"</span>, <span class="seriesInfo">RFC 8323</span>, <span class="seriesInfo">DOI 10.17487/RFC8323</span>, <time datetime="2018-02" class="refDate">February 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8323">https://www.rfc-editor.org/rfc/rfc8323</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9528">[RFC9528]</dt>
+      <dd>
+<span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Preuß Mattsson, J.</span>, and <span class="refAuthor">F. Palombini</span>, <span class="refTitle">"Ephemeral Diffie-Hellman Over COSE (EDHOC)"</span>, <span class="seriesInfo">RFC 9528</span>, <span class="seriesInfo">DOI 10.17487/RFC9528</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9528">https://www.rfc-editor.org/rfc/rfc9528</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

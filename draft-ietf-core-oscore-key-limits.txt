@@ -303,8 +303,8 @@ Table of Contents
       alternatively be agreed by the two peers during the establishment
       of the OSCORE Security Context.  For instance, this value may be
       stored and/or transported in an OSCORE LwM2M object, or specified
-      as part of an EDHOC Application Profile [I-D.ietf-lake-edhoc] used
-      when running EDHOC for establishing the OSCORE Security Context.
+      as part of an EDHOC Application Profile [RFC9528] used when
+      running EDHOC for establishing the OSCORE Security Context.
       Regardless of how the lifetime value is determined, the 'exp'
       parameters is set to indicate the point in time corresponding to
       t_1 offset by t_l.
@@ -450,13 +450,6 @@ Table of Contents
 
 5.2.  Informative References
 
-   [I-D.ietf-lake-edhoc]
-              Selander, G., Mattsson, J. P., and F. Palombini,
-              "Ephemeral Diffie-Hellman Over COSE (EDHOC)", Work in
-              Progress, Internet-Draft, draft-ietf-lake-edhoc-23, 22
-              January 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lake-edhoc-23>.
-
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
@@ -478,6 +471,11 @@ Table of Contents
               Application Protocol) over TCP, TLS, and WebSockets",
               RFC 8323, DOI 10.17487/RFC8323, February 2018,
               <https://www.rfc-editor.org/rfc/rfc8323>.
+
+   [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
+              "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
+              DOI 10.17487/RFC9528, March 2024,
+              <https://www.rfc-editor.org/rfc/rfc9528>.
 
 Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
 
