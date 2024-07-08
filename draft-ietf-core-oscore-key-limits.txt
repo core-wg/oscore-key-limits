@@ -560,9 +560,9 @@ Appendix B.  Estimation of 'count_q'
 
 Appendix C.  Document Updates
 
-C.1.  Version -02 to -03
-
    This section is to be removed before publishing as an RFC.
+
+C.1.  Version -02 to -03
 
    *  Editorial improvements.
 
