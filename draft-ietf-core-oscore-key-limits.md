@@ -278,7 +278,6 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 * If the outgoing message is a request, X is the highest Partial IV value marked as received in this peer's Replay Window plus 1, or 0 if it has not accepted any protected message from the other peer yet. That is, X is the highest Partial IV specified in message received from the other peer, i.e., the highest seen Sender Sequence Number of the other peer. Note that, also in this case, X < SSN\* always holds.
 
 # Document Updates # {#sec-document-updates}
-
 {:removeinrfc}
 
 ## Version -02 to -03 ## {#sec-02-03}
