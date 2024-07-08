@@ -261,7 +261,7 @@ As shown in {{algorithm-limits-ccm8}}, it is especially possible to achieve the 
 ~~~~~~~~~~~
 {: #algorithm-limits-ccm8 title="Probabilities for AEAD_AES_128_CCM_8 based on chosen q, v and l values." artwork-align="center"}
 
-# Estimation of 'count\_q' # {#estimation-count-q}
+# Estimation of 'count_q' # {#estimation-count-q}
 
 This section defines a method to compute an estimate of the counter 'count\_q' (see {{sender-context}}), hence not requiring a peer to store it in its own Sender Context.
 
@@ -318,4 +318,4 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 The authors sincerely thank {{{Christian Amsüss}}}, {{{Carsten Bormann}}}, {{{John Preuß Mattsson}}}, {{{Göran Selander}}} and {{{Rafa Marin-Lopez}}} for their feedback and comments.
 
-The work on this document has been partly supported by VINNOVA and the Celtic-Next project CRITISEC; and by the H2020 project SIFIS-Home (Grant agreement 952652).
+The work on this document has been partly supported by VINNOVA and the Celtic-Next projects CRITISEC and CYPRESS; and by the H2020 project SIFIS-Home (Grant agreement 952652).
