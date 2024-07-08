@@ -88,7 +88,7 @@ The following refers to the two parameters 'q' and 'v' introduced in {{I-D.irtf-
 
 * 'q': this parameter has as value the number of messages protected with a specific key, i.e., the number of times the AEAD algorithm has been invoked to encrypt data with that key.
 
-* 'v': this parameter has as value the number of alleged forgery attempts that have been made against a specific key, i.e., the amount of failed decryptions that have occurred with the AEAD algorithm for that key.
+* 'v': this parameter has as value the number of alleged forgery attempts that have been made against a specific key, i.e., the number of failed decryptions that have occurred with the AEAD algorithm for that key.
 
 When a peer uses OSCORE:
 
@@ -106,7 +106,7 @@ Therefore, in order to preserve the security of the used AEAD algorithm, OSCORE 
 
 Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in {{I-D.irtf-cfrg-aead-limits}}. These formulas take as input specific values for 'q' and 'v' (see section {{problem-overview}}) and for 'l', i.e., the maximum length of each message (in cipher blocks).
 
-For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the key property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be entailed by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.
+For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be entailed by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.
 
 {{algorithm-limits}} also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
@@ -140,13 +140,13 @@ When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v,
 
 With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering a typical MTU size of 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
 
-However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise tranfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take full advantage of BERT functionality and the large message sizes it allows for, the OSCORE peers must use higher values of 'l'.
+However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise transfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take full advantage of BERT functionality and the large message sizes it allows for, the OSCORE peers must use higher values of 'l'.
 
 An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the value of 'q' and 'v' considering the new value of 'l', to ensure an acceptably low value of the IA and CA probabilities. A reasonable target for the IA and CA probability values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
 
 ## Additional Information in the Security Context # {#context}
 
-In addition to what is defined in {{Section 3.1 of RFC8613}}, the following parameters associated with a OSCORE Security Context can be used for keeping track of the expiration of that OSCORE Security Context and maintaining key usage below safe limits.
+In addition to what is defined in {{Section 3.1 of RFC8613}}, the following parameters associated with an OSCORE Security Context can be used for keeping track of the expiration of that OSCORE Security Context and maintaining key usage below safe limits.
 
 ### Common Context # {#common-context}
 
@@ -154,31 +154,31 @@ The Common Context has the following associated parameter.
 
 * 'exp': with value the expiration time of the OSCORE Security Context, as a non-negative integer. The parameter contains a numeric value representing the number of seconds from 1970-01-01T00:00:00Z UTC until the specified UTC date/time, ignoring leap seconds, analogous to what is specified for NumericDate in {{Section 2 of RFC7519}}.
 
-   At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing message, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.
+   At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing messages, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.
 
-   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{RFC9528}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameters is set to indicate the point in time corresponding to t\_1 offset by t\_l.
+   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{RFC9528}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t\_1 offset by t\_l.
 
 ### Sender Context # {#sender-context}
 
 The Sender Context has the following associated parameters.
 
-* 'count_q': a non-negative integer counter, keeping track of the current 'q' value for the Sender Key. At any time, 'count_q' has as value the number of messages that have been encrypted using the Sender Key. The value of 'count_q' is set to 0 when establishing the Sender Context.
+* 'count\_q': a non-negative integer counter, keeping track of the current 'q' value for the Sender Key. At any time, 'count\_q' has as value the number of messages that have been encrypted using the Sender Key. The value of 'count\_q' is set to 0 when establishing the Sender Context.
 
-* 'limit_q': a non-negative integer, which specifies the highest value that 'count_q' is allowed to reach, before stopping using the Sender Key to process outgoing messages.
+* 'limit\_q': a non-negative integer, which specifies the highest value that 'count\_q' is allowed to reach, before stopping using the Sender Key to process outgoing messages.
 
-   The value of 'limit_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit_q' is determined according to {{limits}}.
+   The value of 'limit\_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit\_q' is determined according to {{limits}}.
 
-Note for implementation: it is possible to avoid storing and maintaining the counter 'count_q'. Rather, an estimated value to be compared against 'limit_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit_q' sooner and thus in performing a key update procedure more frequently.
+Note for implementation: it is possible to avoid storing and maintaining the counter 'count\_q'. Rather, an estimated value to be compared against 'limit\_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count\_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit\_q' sooner and thus in performing a key update procedure more frequently.
 
 ### Recipient Context # {#recipient-context}
 
 The Recipient Context has the following associated parameters.
 
-* 'count_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count_v' has as value the number of failed decryptions occurred on incoming messages using the Recipient Key. The value of 'count_v' is set to 0 when establishing the Recipient Context.
+* 'count\_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count\_v' has as value the number of failed decryptions occurred on incoming messages using the Recipient Key. The value of 'count\_v' is set to 0 when establishing the Recipient Context.
 
-* 'limit_v': a non-negative integer, which specifies the highest value that 'count_v' is allowed to reach, before stopping using the Recipient Key to process incoming messages.
+* 'limit\_v': a non-negative integer, which specifies the highest value that 'count\_v' is allowed to reach, before stopping using the Recipient Key to process incoming messages.
 
-   The value of 'limit_v' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit_v' is determined according to {{limits}}.
+   The value of 'limit\_v' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit\_v' is determined according to {{limits}}.
 
 ## OSCORE Message Processing #
 
@@ -198,15 +198,15 @@ The processing of CoAP messages with OSCORE follows the steps outlined in {{Sect
 
 ### Protecting a Request or a Response ## {#protecting-req-resp}
 
-Before encrypting the COSE object using the Sender Key, the 'count_q' counter is incremented.
+Before encrypting the COSE object using the Sender Key, the 'count\_q' counter is incremented.
 
 If 'count\_q' exceeds the 'limit\_q' limit, the message processing is aborted. From then on, the Sender Key must not be used to encrypt further messages.
 
 ### Verifying a Request or a Response ## {#verifying-req-resp}
 
-If an incoming message is detected to be a replay (see {{Section 7.4 of RFC8613}}), the 'count_v' counter is not incremented.
+If an incoming message is detected to be a replay (see {{Section 7.4 of RFC8613}}), the 'count\_v' counter is not incremented.
 
-If the decryption and verification of the COSE object using the Recipient Key fails, the 'count_v' counter is incremented.
+If the decryption and verification of the COSE object using the Recipient Key fails, the 'count\_v' counter is incremented.
 
 After 'count\_v' has exceeded the 'limit\_v' limit, incoming messages must not be decrypted and verified using the Recipient Key, and their processing must be aborted.
 
@@ -261,9 +261,9 @@ As shown in {{algorithm-limits-ccm8}}, it is especially possible to achieve the 
 ~~~~~~~~~~~
 {: #algorithm-limits-ccm8 title="Probabilities for AEAD_AES_128_CCM_8 based on chosen q, v and l values." artwork-align="center"}
 
-# Estimation of 'count_q' # {#estimation-count-q}
+# Estimation of 'count\_q' # {#estimation-count-q}
 
-This section defines a method to compute an estimate of the counter 'count_q' (see {{sender-context}}), hence not requiring a peer to store it in its own Sender Context.
+This section defines a method to compute an estimate of the counter 'count\_q' (see {{sender-context}}), hence not requiring a peer to store it in its own Sender Context.
 
 This method relies on the fact that, at any point in time, a peer has performed _at most_ ENC = (SSN + SSN\*) encryptions using its own Sender Key, where:
 
@@ -309,7 +309,7 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 * Recommendation on limits for CCM_8. Details in Appendix.
 
-* Example of method to estimate and not store 'count_q'.
+* Example of method to estimate and not store 'count\_q'.
 
 * Split out material from Key Update for OSCORE draft into this new document.
 
