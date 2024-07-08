@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 7 January 2025                                      6 July 2024
+Expires: 9 January 2025                                      8 July 2024
 
 
                       Key Usage Limits for OSCORE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2025.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -164,7 +164,7 @@ Table of Contents
 
    *  'v': this parameter has as value the number of alleged forgery
       attempts that have been made against a specific key, i.e., the
-      amount of failed decryptions that have occurred with the AEAD
+      number of failed decryptions that have occurred with the AEAD
       algorithm for that key.
 
    When a peer uses OSCORE:
@@ -195,10 +195,10 @@ Table of Contents
    'l', i.e., the maximum length of each message (in cipher blocks).
 
    For the algorithms shown in Figure 1 that can be used as AEAD
-   Algorithm for OSCORE, the key property to achieve is having IA and CA
-   values which are no larger than p = 2^-64, which will ensure a safe
-   security level for the AEAD Algorithm.  This can be entailed by using
-   the values q = 2^20, v = 2^20, and l = 2^10, that this document
+   Algorithm for OSCORE, the main property to achieve is having IA and
+   CA values which are no larger than p = 2^-64, which will ensure a
+   safe security level for the AEAD Algorithm.  This can be entailed by
+   using the values q = 2^20, v = 2^20, and l = 2^10, that this document
    recommends to use for these algorithms.
 
    Figure 1 also shows the resulting IA and CA probabilities enjoyed by
@@ -254,7 +254,7 @@ Table of Contents
    However, although under typical circumstances an 'l' limit of 2^8
    (4096 bytes) is acceptable, exceptional cases can warrant a higher
    value of 'l'.  For instance, Block-wise Extension for Reliable
-   Transport (BERT) extends the CoAP Block-Wise tranfer functionality,
+   Transport (BERT) extends the CoAP Block-Wise transfer functionality,
    enabling use of larger messages over reliable transports such as TCP
    or WebSockets (see [RFC8323]).  In case the OSCORE peers wish to take
    full advantage of BERT functionality and the large message sizes it
@@ -272,8 +272,8 @@ Table of Contents
 2.2.  Additional Information in the Security Context
 
    In addition to what is defined in Section 3.1 of [RFC8613], the
-   following parameters associated with a OSCORE Security Context can be
-   used for keeping track of the expiration of that OSCORE Security
+   following parameters associated with an OSCORE Security Context can
+   be used for keeping track of the expiration of that OSCORE Security
    Context and maintaining key usage below safe limits.
 
 2.2.1.  Common Context
@@ -288,13 +288,13 @@ Table of Contents
       NumericDate in Section 2 of [RFC7519].
 
       At the time indicated by this parameter, a peer must stop using
-      this Security Context to process any incoming or outgoing message,
-      and is required to establish a new Security Context to continue
-      OSCORE-protected communications with the other peer.  That is, the
-      expiration of an OSCORE Security Context means that the current
-      Sender Key must no longer be used for protecting outgoing
-      messages, and the Recipient Key must no longer be used for
-      unprotecting incoming messages.
+      this Security Context to process any incoming or outgoing
+      messages, and is required to establish a new Security Context to
+      continue OSCORE-protected communications with the other peer.
+      That is, the expiration of an OSCORE Security Context means that
+      the current Sender Key must no longer be used for protecting
+      outgoing messages, and the Recipient Key must no longer be used
+      for unprotecting incoming messages.
 
       The value of 'exp' must be set upon installing the OSCORE Security
       Context, namely at time t_1, considering a lifetime value t_l.  In
@@ -306,7 +306,7 @@ Table of Contents
       as part of an EDHOC Application Profile [RFC9528] used when
       running EDHOC for establishing the OSCORE Security Context.
       Regardless of how the lifetime value is determined, the 'exp'
-      parameters is set to indicate the point in time corresponding to
+      parameter is set to indicate the point in time corresponding to
       t_1 offset by t_l.
 
 2.2.2.  Sender Context
