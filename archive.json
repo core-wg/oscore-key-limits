@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T01:27:24.465149+00:00",
+  "timestamp": "2024-10-22T01:21:50.040858+00:00",
   "repo": "core-wg/oscore-key-limits",
   "labels": [
     {
@@ -70,7 +70,7 @@
       "id": "I_kwDOJS8M4c5i3Aks",
       "title": "Reduce scope of the limits section and point more to the CFRG document?",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -79,9 +79,17 @@
       ],
       "body": "We could reduce the scope of the limits section and only cover there the counting logic and OSCORE-relevant processing. Then for the rest we point to the document in CFRG .\r\nhttps://datatracker.ietf.org/doc/draft-irtf-cfrg-aead-limits/05/",
       "createdAt": "2022-07-27T19:14:31Z",
-      "updatedAt": "2023-07-08T14:07:59Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-10-21T12:52:30Z",
+      "closedAt": "2024-10-21T12:52:30Z",
+      "comments": [
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "Closing this as out of date and covered in other issue",
+          "createdAt": "2024-10-21T12:52:30Z",
+          "updatedAt": "2024-10-21T12:52:30Z"
+        }
+      ]
     },
     {
       "number": 2,
@@ -130,7 +138,7 @@
       "id": "I_kwDOJS8M4c5i3A0l",
       "title": "Using clock instead of saving counters",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -139,8 +147,8 @@
       ],
       "body": "Idea from Carsten from previous IETF meeting: \"Use clock instead of saving counters\"",
       "createdAt": "2022-03-01T07:43:24Z",
-      "updatedAt": "2023-07-08T14:05:03Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T13:05:33Z",
+      "closedAt": "2024-10-21T13:05:33Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -148,6 +156,13 @@
           "body": "We can check recording for details.",
           "createdAt": "2022-03-01T07:43:28Z",
           "updatedAt": "2022-03-01T07:43:28Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "Summarized and added in new issue about optimizations: https://github.com/core-wg/oscore-key-limits/issues/19",
+          "createdAt": "2024-10-21T13:05:33Z",
+          "updatedAt": "2024-10-21T13:05:33Z"
         }
       ]
     },
@@ -156,7 +171,7 @@
       "id": "I_kwDOJS8M4c5i3A2F",
       "title": "Update content to reflect new version of draft-irtf-cfrg-aead-limits",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -165,8 +180,8 @@
       ],
       "body": "The content related to the limits should be updated to reflect the changes to the CFRG draft:\r\n\r\nhttps://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-03\r\n\r\nFor instance the definition/description of 'l' has changed.",
       "createdAt": "2022-03-01T07:42:49Z",
-      "updatedAt": "2023-07-08T14:07:19Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T12:52:39Z",
+      "closedAt": "2024-10-21T12:52:39Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -209,6 +224,13 @@
           "body": "Check latest version: draft-irtf-cfrg-aead-limits-05\r\n",
           "createdAt": "2022-12-27T14:32:16Z",
           "updatedAt": "2022-12-27T14:32:16Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "Closing this as out of date and covered in other issue",
+          "createdAt": "2024-10-21T12:52:39Z",
+          "updatedAt": "2024-10-21T12:52:39Z"
         }
       ]
     },
@@ -293,7 +315,7 @@
       "id": "I_kwDOJS8M4c5i3A6F",
       "title": "Redefine 'l', 'limit_q', and 'limit_v' specifically for OSCORE",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -302,8 +324,8 @@
       ],
       "body": "Based on feedback from John during the CoRE interim on April 28.\r\n\r\nCurrently we are using l = 2^10, dropping that to 2^8 may be beneficial.\r\n\r\nFurthermore we can define set values for 'limit_q' and 'limit_v', not relying on the CFRG document.\r\n\r\nFor instance setting an overall value for 'limit_q' to 2^20 (which is lower than all the calculated limits for q we have currently).\r\n\r\nAs long as we reduce values, like reducing the size of l and the size of 'limit_q' things should be easy to motivate as we are erring more on the side of caution.\r\n\r\nWhen it comes to redefining 'limit_v' we actually want to increase this value and here is where we need a good motivation. We can start a discussion on the mailing list based on the figures John presented. He also promised to contribute material in the form of a PR to the draft.",
       "createdAt": "2022-03-01T07:38:19Z",
-      "updatedAt": "2023-07-08T14:09:50Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T12:54:57Z",
+      "closedAt": "2024-10-21T12:54:57Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -318,6 +340,13 @@
           "body": "Double check calculations in the table, especially for AES CCM 8 with John.",
           "createdAt": "2022-03-01T07:38:49Z",
           "updatedAt": "2022-03-01T07:38:49Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "We have our own calculated probabilities now. \r\n\r\nAny further diverging from what the CRFG document says need strong motivation. Further discussion with John is already another issue in https://github.com/core-wg/oscore-key-limits/issues/2",
+          "createdAt": "2024-10-21T12:54:57Z",
+          "updatedAt": "2024-10-21T12:54:57Z"
         }
       ]
     },
@@ -375,7 +404,7 @@
       "id": "I_kwDOJS8M4c5i3A_C",
       "title": "Consider different probabilities p_q and p_v for OSCORE specifically?",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -384,8 +413,8 @@
       ],
       "body": "",
       "createdAt": "2022-03-01T07:35:24Z",
-      "updatedAt": "2023-07-08T14:09:59Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T12:57:03Z",
+      "closedAt": "2024-10-21T12:57:03Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -400,6 +429,13 @@
           "body": "Essentially we will work in the reverse compared to what we are currently doing, updating the table in 2.1.1 to calculate CA and IA from a set l, q and v value to show that the resulting probabilities are safe.",
           "createdAt": "2022-03-01T07:35:32Z",
           "updatedAt": "2022-03-01T07:35:32Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "> Essentially we will work in the reverse compared to what we are currently doing, updating the table in 2.1.1 to calculate CA and IA from a set l, q and v value to show that the resulting probabilities are safe.\r\n\r\nFigure 1 is now showing CA and IA probabilities based on our own values for l, q and v.",
+          "createdAt": "2024-10-21T12:57:03Z",
+          "updatedAt": "2024-10-21T12:57:03Z"
         }
       ]
     },
@@ -408,7 +444,7 @@
       "id": "I_kwDOJS8M4c5i3BAK",
       "title": "Each client can count q up to half(?) the q limit as an optimization",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/12",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -417,8 +453,8 @@
       ],
       "body": "As suggested during the CoRE interim. This works fine with responses with no partial IV since they will be counted in that senders q counter. Each request can only have max one response without PIV. For Observe notifications they will have a PIV (except maybe the first).",
       "createdAt": "2022-03-01T07:33:43Z",
-      "updatedAt": "2023-07-08T14:06:07Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T13:05:22Z",
+      "closedAt": "2024-10-21T13:05:21Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -482,6 +518,13 @@
           "body": "What is the maximum overestimation for the solution in the HackMD? Feedback from G\u00f6ran during the CoRE interim on April 28 was 2x (double), which makes sense to me also.",
           "createdAt": "2022-03-01T07:34:58Z",
           "updatedAt": "2022-03-01T07:34:58Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "Summarized and added in new issue about optimizations: https://github.com/core-wg/oscore-key-limits/issues/19",
+          "createdAt": "2024-10-21T13:05:21Z",
+          "updatedAt": "2024-10-21T13:05:21Z"
         }
       ]
     },
@@ -523,7 +566,7 @@
       "id": "I_kwDOJS8M4c5i3BCo",
       "title": "Consider constrained devices and saving count_q and count_v regularly",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/14",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -532,8 +575,8 @@
       ],
       "body": "How often must they be stored? Consider Appendix B.1 and saving the SSN.",
       "createdAt": "2022-03-01T07:32:25Z",
-      "updatedAt": "2023-07-08T14:06:21Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T13:05:27Z",
+      "closedAt": "2024-10-21T13:05:27Z",
       "comments": [
         {
           "author": "rikard-sics",
@@ -555,6 +598,13 @@
           "body": "Explore further the idea from Carsten mentioned during the CoRE interim on April 28. This was about utilizing the clock (on devices which have one) to not have to save count_q and count_v in some situations.\r\n\r\nWe can also clarify that saving the counters every N is just a suggestion for implementers. Different solutions may be acceptable. The key point is making sure to not lose or underestimate the counters after reboot (while overestimating them can be fine to some extent).",
           "createdAt": "2022-03-01T07:32:57Z",
           "updatedAt": "2022-03-01T07:32:57Z"
+        },
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "Summarized and added in new issue about optimizations: https://github.com/core-wg/oscore-key-limits/issues/19",
+          "createdAt": "2024-10-21T13:05:27Z",
+          "updatedAt": "2024-10-21T13:05:27Z"
         }
       ]
     },
@@ -598,10 +648,12 @@
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
-      "labels": [],
+      "labels": [
+        "limits"
+      ],
       "body": "Shall we specify a recommended lifetime or leave it open?\r\n\r\nPerhaps relevant:\r\n\r\n> The TLS 1.2 spec says: \"An upper limit of 24 hours is suggested for session ID lifetimes, since an attacker who obtains a master_secret may be able to impersonate the compromised party until the corresponding session ID is retired.\"\r\n\r\n",
       "createdAt": "2023-07-07T14:30:52Z",
-      "updatedAt": "2023-07-07T14:30:52Z",
+      "updatedAt": "2024-10-21T12:58:06Z",
       "closedAt": null,
       "comments": []
     },
@@ -610,14 +662,58 @@
       "id": "I_kwDOJS8M4c5q7oNv",
       "title": "Make informational?",
       "url": "https://github.com/core-wg/oscore-key-limits/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "rikard-sics",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Check old minutes",
       "createdAt": "2023-07-07T18:24:07Z",
-      "updatedAt": "2023-07-07T18:24:07Z",
+      "updatedAt": "2024-10-21T12:45:53Z",
+      "closedAt": "2024-10-21T12:45:53Z",
+      "comments": [
+        {
+          "author": "rikard-sics",
+          "authorAssociation": "MEMBER",
+          "body": "This has already been done",
+          "createdAt": "2024-10-21T12:45:53Z",
+          "updatedAt": "2024-10-21T12:45:53Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOJS8M4c6bHmHl",
+      "title": "Keep content aligned with latest CFRG document",
+      "url": "https://github.com/core-wg/oscore-key-limits/issues/18",
+      "state": "OPEN",
+      "author": "rikard-sics",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "cfrg-aead-limits"
+      ],
+      "body": "Let's track how the content of the CFRG document develops. Up to v-09 there has been no new radical changes.\r\n\r\nA related point is how much we should rely on the CFRG document. We could for instance reduce the scope of the limits section and only cover there the counting logic and OSCORE-relevant processing. Then for the rest we point to the document in CFRG .",
+      "createdAt": "2024-10-21T12:52:12Z",
+      "updatedAt": "2024-10-21T12:52:13Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOJS8M4c6bHva9",
+      "title": "Different possible optimizations for count_q and count_v",
+      "url": "https://github.com/core-wg/oscore-key-limits/issues/19",
+      "state": "OPEN",
+      "author": "rikard-sics",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [
+        "optimization"
+      ],
+      "body": "We had a number of proposals about optimizations for the counters.\r\n\r\n- Use the device clock in a clever way, instead of saving counters\r\n   - Proposal by Carsten during IETF 112 and interim 2022-04-28\r\n- Constrained devices saving count_q/count_v regularly\r\n   - Similar to OSCORE Appendix B.1\r\n- Each client can count q up to half the q limit\r\n   - Proposal from Christian \r\n   - See notes here: https://hackmd.io/sOliRiyGQT-OmjxbprN9XA\r\n   - What is the maximum overestimation?\r\n\r\nWe should consider how these 3 proposals work, and how they would interact with each other or can be combined. We can also clarify that saving the counters every N is just a suggestion for implementers. Different solutions may be acceptable. The key point is making sure to not lose or underestimate the counters after reboot (while overestimating them can be fine to some extent).\r\n\r\n",
+      "createdAt": "2024-10-21T13:04:49Z",
+      "updatedAt": "2024-10-21T13:06:53Z",
       "closedAt": null,
       "comments": []
     }
