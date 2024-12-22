@@ -280,6 +280,10 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
+## Version -03 to -04 ## {#sec-03-04}
+
+* Various editorial improvements.
+
 ## Version -02 to -03 ## {#sec-02-03}
 
 * Editorial improvements.
