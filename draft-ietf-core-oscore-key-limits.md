@@ -106,7 +106,7 @@ Therefore, in order to preserve the security of the used AEAD algorithm, OSCORE 
 
 Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in {{I-D.irtf-cfrg-aead-limits}}. These formulas take as input specific values for 'q' and 'v' (see section {{problem-overview}}) and for 'l', i.e., the maximum length of each message (in cipher blocks).
 
-For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be entailed by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.
+For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.
 
 {{algorithm-limits}} also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
@@ -122,7 +122,7 @@ For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algori
 ~~~~~~~~~~~
 {: #algorithm-limits title="Probabilities for algorithms based on chosen q, v and l values." artwork-align="center"}
 
-When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD_AES_128_CCM_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require to inconveniently reduce 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in {{aead-aes-128-ccm-8-details}}.
+When AEAD\_AES\_128\_CCM\_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD\_AES\_128\_CCM\_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require to inconveniently reduce 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in {{aead-aes-128-ccm-8-details}}.
 
 ~~~~~~~~~~~
 +------------------------+----------+----------+-----------+
@@ -138,7 +138,7 @@ When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v,
 ~~~~~~~~~~~
 {: #l-values-as-bytes title="Maximum length of each message (in bytes)" artwork-align="center"}
 
-With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD_AES_128_CCM_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering a typical MTU size of 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
+With regards to the limit for 'l', the recommended 'l' value for the algorithms shown in {{algorithm-limits}}, and for AEAD\_AES\_128\_CCM\_8, is 2^10 (16384 bytes) and 2^8 (4096 bytes) respectively. Considering a typical MTU size of 1500 bytes, and the fact that the maximum block size when using block-wise transfers with CoAP is 1024 bytes (see {{Section 2 of RFC7959}}), it is unlikely that a larger size of 'l' than what is recommended makes sense to use in typical network setups.
 
 However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise transfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take full advantage of BERT functionality and the large message sizes it allows for, the OSCORE peers must use higher values of 'l'.
 
@@ -156,7 +156,7 @@ The Common Context has the following associated parameter.
 
    At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing messages, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.
 
-   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{RFC9528}} used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t\_1 offset by t\_l.
+   The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile {{Section 3.9 of RFC9528}} used when executing EDHOC to establish the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t\_1 offset by t\_l.
 
 ### Sender Context # {#sender-context}
 
@@ -168,13 +168,13 @@ The Sender Context has the following associated parameters.
 
    The value of 'limit\_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit\_q' is determined according to {{limits}}.
 
-Note for implementation: it is possible to avoid storing and maintaining the counter 'count\_q'. Rather, an estimated value to be compared against 'limit\_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count\_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit\_q' sooner and thus in performing a key update procedure more frequently.
+Note for implementors: it is possible to avoid storing and maintaining the counter 'count\_q'. Rather, an estimated value to be compared against 'limit\_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count\_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit\_q' sooner and thus in performing a key update procedure more frequently.
 
 ### Recipient Context # {#recipient-context}
 
 The Recipient Context has the following associated parameters.
 
-* 'count\_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count\_v' has as value the number of failed decryptions occurred on incoming messages using the Recipient Key. The value of 'count\_v' is set to 0 when establishing the Recipient Context.
+* 'count\_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count\_v' has as value the number of failed decryptions occurred for incoming messages using the Recipient Key. The value of 'count\_v' is set to 0 when establishing the Recipient Context.
 
 * 'limit\_v': a non-negative integer, which specifies the highest value that 'count\_v' is allowed to reach, before stopping using the Recipient Key to process incoming messages.
 
@@ -186,7 +186,7 @@ In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are n
 
 A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
 
-If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split the whole, large content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
+If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
 
 1. The CoAP message to transmit is first produced.
 
@@ -224,9 +224,9 @@ This document has no IANA actions.
 
 # Detailed considerations for AEAD_AES_128_CCM_8 # {#aead-aes-128-ccm-8-details}
 
-For the AEAD_AES_128_CCM_8 algorithm when used as AEAD Algorithm for OSCORE, larger IA and CA values are achieved, depending on the value of 'q', 'v' and 'l'. {{algorithm-limits-ccm8}} shows the resulting IA and CA probabilities enjoyed by AEAD_AES_128_CCM_8, when taking different values of 'q', 'v' and 'l' as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
+For the AEAD\_AES\_128\_CCM\_8 algorithm when used as AEAD Algorithm for OSCORE, larger IA and CA values are achieved, depending on the value of 'q', 'v' and 'l'. {{algorithm-limits-ccm8}} shows the resulting IA and CA probabilities enjoyed by AEAD\_AES\_128\_CCM\_8, when taking different values of 'q', 'v' and 'l' as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
-As shown in {{algorithm-limits-ccm8}}, it is especially possible to achieve the lowest IA = 2^-50 and a good CA = 2^-70 by considering the largest possible value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while still keeping a good security level. Note that the value of 'l' does not impact on IA, while CA displays good values for every considered value of 'l'.
+As shown in {{algorithm-limits-ccm8}}, it is especially possible to achieve the lowest IA = 2^-50 and a good CA = 2^-70 by considering the largest possible value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while still keeping a good security level. Note that the value of 'l' does not impact the IA, while CA displays good values for every considered value of 'l'.
 
 ~~~~~~~~~~~
 +-----------------------+----------------+----------------+
@@ -275,7 +275,7 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 * If the outgoing message is a response, X is the Partial IV specified in the corresponding request that this peer is responding to. Note that X < SSN\* always holds.
 
-* If the outgoing message is a request, X is the highest Partial IV value marked as received in this peer's Replay Window plus 1, or 0 if it has not accepted any protected message from the other peer yet. That is, X is the highest Partial IV specified in message received from the other peer, i.e., the highest seen Sender Sequence Number of the other peer. Note that, also in this case, X < SSN\* always holds.
+* If the outgoing message is a request, X is the highest Partial IV value marked as received in this peer's Replay Window plus 1, or 0 if it has not accepted any protected message from the other peer yet. That is, X is the highest Partial IV specified in a message received from the other peer, i.e., the highest seen Sender Sequence Number of the other peer. Note that, also in this case, X < SSN\* always holds.
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
@@ -306,7 +306,7 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 * Extended terminology.
 
-* Recommendation on limits for CCM_8. Details in Appendix.
+* Recommendation on limits for CCM\_8. Details in Appendix.
 
 * Example of method to estimate and not store 'count\_q'.
 
