@@ -43,10 +43,11 @@ normative:
   RFC8613:
 
 informative:
+  I-D.irtf-cfrg-aead-limits:
   RFC7519:
   RFC7959:
   RFC8323:
-  I-D.irtf-cfrg-aead-limits:
+  RFC9052:
   RFC9528:
 
 entity:
@@ -184,7 +185,7 @@ The Recipient Context has the following associated parameters.
 
 In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.
 
-A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
+A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext {{RFC9052}}, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
 
 If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
 
@@ -282,7 +283,9 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 ## Version -03 to -04 ## {#sec-03-04}
 
-* Various editorial improvements.
+* Minor editorial updates.
+
+* Improved references.
 
 ## Version -02 to -03 ## {#sec-02-03}
 
