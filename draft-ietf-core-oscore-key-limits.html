@@ -10,22 +10,22 @@
 <meta content="
        Object Security for Constrained RESTful Environments (OSCORE) uses AEAD algorithms to ensure confidentiality and integrity of exchanged messages. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used for encryption or decryption. Among other reasons, approaching key usage limits requires updating the OSCORE keying material before communications can securely continue. This document defines how two OSCORE peers can follow these key usage limits and what steps they should take to preserve the security of their communications. 
     " name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="xml2rfc 3.25.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-core-oscore-key-limits-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.22.0
-    Python 3.12.3
+  xml2rfc 3.25.0
+    Python 3.12.8
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.2.2
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    lxml 5.3.0
+    platformdirs 4.3.6
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
-    setuptools 69.5.1
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-core-oscore-key-limits.xml" rel="alternate" type="application/rfc+xml">
@@ -162,31 +162,6 @@
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -203,6 +178,77 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -215,6 +261,7 @@
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -232,9 +279,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -263,6 +316,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -340,25 +394,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -366,38 +421,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -461,6 +517,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -478,7 +535,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -515,6 +576,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -529,6 +591,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -559,9 +631,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -601,26 +675,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -631,9 +707,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -641,47 +714,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -689,21 +763,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -725,6 +811,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -735,7 +822,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -746,9 +857,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -761,17 +869,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -782,14 +890,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -797,11 +904,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -830,20 +937,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -886,9 +985,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -911,82 +1007,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1025,11 +1045,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Key Usage Limits for OSCORE</td>
-<td class="right">July 2024</td>
+<td class="right">December 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Höglund &amp; Tiloca</td>
-<td class="center">Expires 9 January 2025</td>
+<td class="center">Expires 27 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1042,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-oscore-key-limits-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-08" class="published">8 July 2024</time>
+<time datetime="2024-12-24" class="published">24 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-09">9 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-27">27 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1096,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1198,16 +1218,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.8.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-document-updates" class="internal xref">Document Updates</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-version-03-to-04" class="internal xref">Version -03 to -04</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
-                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-C.4" class="auto internal xref">C.4</a>.  <a href="#name-version-00" class="internal xref">Version -00</a></p>
+                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-C.4" class="auto internal xref">C.4</a>.  <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#appendix-C.5" class="auto internal xref">C.5</a>.  <a href="#name-version-00" class="internal xref">Version -00</a></p>
 </li>
             </ul>
 </li>
@@ -1281,7 +1304,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-limits-for-q-and-v" class="section-name selfRef">Limits for 'q' and 'v'</a>
           </h4>
 <p id="section-2.1.1-1">Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>. These formulas take as input specific values for 'q' and 'v' (see section <a href="#problem-overview" class="auto internal xref">Section 2.1</a>) and for 'l', i.e., the maximum length of each message (in cipher blocks).<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1.1-2">For the algorithms shown in <a href="#algorithm-limits" class="auto internal xref">Figure 1</a> that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be entailed by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-2">For the algorithms shown in <a href="#algorithm-limits" class="auto internal xref">Figure 1</a> that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1.1-3"><a href="#algorithm-limits" class="auto internal xref">Figure 1</a> also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>.<a href="#section-2.1.1-3" class="pilcrow">¶</a></p>
 <span id="name-probabilities-for-algorithm"></span><div id="algorithm-limits">
 <figure id="figure-1">
@@ -1347,7 +1370,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-2.2.1-2.1.2">
 At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing messages, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used for unprotecting incoming messages.<a href="#section-2.2.1-2.1.2" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-2.1.3">
-The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t_1, considering a lifetime value t_l. In particular, t_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can alternatively be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> used when running EDHOC for establishing the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t_1 offset by t_l.<a href="#section-2.2.1-2.1.3" class="pilcrow">¶</a></p>
+The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t_1, considering a lifetime value t_l. In particular, t_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in an OSCORE LwM2M object, or specified as part of an EDHOC Application Profile <span><a href="https://rfc-editor.org/rfc/rfc9528#section-3.9" class="relref">Section 3.9</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> used when executing EDHOC to establish the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t_1 offset by t_l.<a href="#section-2.2.1-2.1.3" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1368,7 +1391,7 @@ The value of 'exp' must be set upon installing the OSCORE Security Context, name
 The value of 'limit_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit_q' is determined according to <a href="#limits" class="auto internal xref">Section 2.1.1</a>.<a href="#section-2.2.2-2.2.2" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-2.2.2-3">Note for implementation: it is possible to avoid storing and maintaining the counter 'count_q'. Rather, an estimated value to be compared against 'limit_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in <a href="#estimation-count-q" class="auto internal xref">Appendix B</a>. While this relieves peers from storing and maintaining the precise 'count_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit_q' sooner and thus in performing a key update procedure more frequently.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-3">Note for implementors: it is possible to avoid storing and maintaining the counter 'count_q'. Rather, an estimated value to be compared against 'limit_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in <a href="#estimation-count-q" class="auto internal xref">Appendix B</a>. While this relieves peers from storing and maintaining the precise 'count_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit_q' sooner and thus in performing a key update procedure more frequently.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="recipient-context">
@@ -1379,7 +1402,7 @@ The value of 'limit_q' depends on the AEAD algorithm specified in the Common Con
 <p id="section-2.2.3-1">The Recipient Context has the following associated parameters.<a href="#section-2.2.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2.3-2.1">
-              <p id="section-2.2.3-2.1.1">'count_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count_v' has as value the number of failed decryptions occurred on incoming messages using the Recipient Key. The value of 'count_v' is set to 0 when establishing the Recipient Context.<a href="#section-2.2.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-2.2.3-2.1.1">'count_v': a non-negative integer counter, keeping track of the current 'v' value for the Recipient Key. At any time, 'count_v' has as value the number of failed decryptions occurred for incoming messages using the Recipient Key. The value of 'count_v' is set to 0 when establishing the Recipient Context.<a href="#section-2.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-2.2.3-2.2">
               <p id="section-2.2.3-2.2.1">'limit_v': a non-negative integer, which specifies the highest value that 'count_v' is allowed to reach, before stopping using the Recipient Key to process incoming messages.<a href="#section-2.2.3-2.2.1" class="pilcrow">¶</a></p>
@@ -1398,7 +1421,7 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
         </h3>
 <p id="section-2.3-1">In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in <span><a href="https://rfc-editor.org/rfc/rfc8613#section-5.3" class="relref">Section 5.3</a> of [<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
-<p id="section-2.3-3">If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> may be used as a means to split the whole, large content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+<p id="section-2.3-3">If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> may be used as a means to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.3-4">
 <li id="section-2.3-4.1">
             <p id="section-2.3-4.1.1">The CoAP message to transmit is first produced.<a href="#section-2.3-4.1.1" class="pilcrow">¶</a></p>
@@ -1451,6 +1474,7 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="sec-combined-references">
 <section id="section-5">
       <h2 id="name-references">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-references" class="section-name selfRef">References</a>
@@ -1488,7 +1512,7 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <dl class="references">
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
-<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-08</span>, <time datetime="2024-04-01" class="refDate">1 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-08">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-09</span>, <time datetime="2024-10-09" class="refDate">9 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7519">[RFC7519]</dt>
         <dd>
@@ -1510,13 +1534,14 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 </section>
 </div>
 </section>
+</div>
 <div id="aead-aes-128-ccm-8-details">
 <section id="appendix-A">
       <h2 id="name-detailed-considerations-for">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-detailed-considerations-for" class="section-name selfRef">Detailed considerations for AEAD_AES_128_CCM_8</a>
       </h2>
 <p id="appendix-A-1">For the AEAD_AES_128_CCM_8 algorithm when used as AEAD Algorithm for OSCORE, larger IA and CA values are achieved, depending on the value of 'q', 'v' and 'l'. <a href="#algorithm-limits-ccm8" class="auto internal xref">Figure 3</a> shows the resulting IA and CA probabilities enjoyed by AEAD_AES_128_CCM_8, when taking different values of 'q', 'v' and 'l' as input to the formulas defined in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">As shown in <a href="#algorithm-limits-ccm8" class="auto internal xref">Figure 3</a>, it is especially possible to achieve the lowest IA = 2^-50 and a good CA = 2^-70 by considering the largest possible value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while still keeping a good security level. Note that the value of 'l' does not impact on IA, while CA displays good values for every considered value of 'l'.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">As shown in <a href="#algorithm-limits-ccm8" class="auto internal xref">Figure 3</a>, it is especially possible to achieve the lowest IA = 2^-50 and a good CA = 2^-70 by considering the largest possible value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while still keeping a good security level. Note that the value of 'l' does not impact the IA, while CA displays good values for every considered value of 'l'.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <span id="name-probabilities-for-aead_aes_"></span><div id="algorithm-limits-ccm8">
 <figure id="figure-3">
         <div class="alignCenter art-text artwork" id="appendix-A-3.1">
@@ -1579,7 +1604,7 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
           <p id="appendix-B-5.1.1">If the outgoing message is a response, X is the Partial IV specified in the corresponding request that this peer is responding to. Note that X &lt; SSN* always holds.<a href="#appendix-B-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-5.2">
-          <p id="appendix-B-5.2.1">If the outgoing message is a request, X is the highest Partial IV value marked as received in this peer's Replay Window plus 1, or 0 if it has not accepted any protected message from the other peer yet. That is, X is the highest Partial IV specified in message received from the other peer, i.e., the highest seen Sender Sequence Number of the other peer. Note that, also in this case, X &lt; SSN* always holds.<a href="#appendix-B-5.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-5.2.1">If the outgoing message is a request, X is the highest Partial IV value marked as received in this peer's Replay Window plus 1, or 0 if it has not accepted any protected message from the other peer yet. That is, X is the highest Partial IV specified in a message received from the other peer, i.e., the highest seen Sender Sequence Number of the other peer. Note that, also in this case, X &lt; SSN* always holds.<a href="#appendix-B-5.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1590,74 +1615,86 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-updates" class="section-name selfRef">Document Updates</a>
       </h2>
 <p id="appendix-C-1">This section is to be removed before publishing as an RFC.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<div id="sec-02-03">
+<div id="sec-03-04">
 <section id="appendix-C.1">
-        <h3 id="name-version-02-to-03">
-<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
+        <h3 id="name-version-03-to-04">
+<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-version-03-to-04" class="section-name selfRef">Version -03 to -04</a>
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-C.1-1.1">
-            <p id="appendix-C.1-1.1.1">Editorial improvements.<a href="#appendix-C.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-C.1-1.1.1">Various editorial improvements.<a href="#appendix-C.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="sec-02-03">
+<section id="appendix-C.2">
+        <h3 id="name-version-02-to-03">
+<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-C.2-1.1">
+            <p id="appendix-C.2-1.1.1">Editorial improvements.<a href="#appendix-C.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-01-02">
-<section id="appendix-C.2">
+<section id="appendix-C.3">
         <h3 id="name-version-01-to-02">
-<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
+<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.2-1.1">
-            <p id="appendix-C.2-1.1.1">Updated references.<a href="#appendix-C.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.3-1.1">
+            <p id="appendix-C.3-1.1.1">Updated references.<a href="#appendix-C.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-00-01">
-<section id="appendix-C.3">
+<section id="appendix-C.4">
         <h3 id="name-version-00-to-01">
-<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
+<a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.3-1.1">
-            <p id="appendix-C.3-1.1.1">Extended discussion on setting the lifetime of OSCORE Security Contexts.<a href="#appendix-C.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.4-1.1">
+            <p id="appendix-C.4-1.1.1">Extended discussion on setting the lifetime of OSCORE Security Contexts.<a href="#appendix-C.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.3-1.2">
-            <p id="appendix-C.3-1.2.1">Mention adjusting the 'q' and 'v' values to compensate for a larger 'l' value.<a href="#appendix-C.3-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.4-1.2">
+            <p id="appendix-C.4-1.2.1">Mention adjusting the 'q' and 'v' values to compensate for a larger 'l' value.<a href="#appendix-C.4-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.3-1.3">
-            <p id="appendix-C.3-1.3.1">Specify how to perform pre-calculation of message size to determine need for block-wise.<a href="#appendix-C.3-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.4-1.3">
+            <p id="appendix-C.4-1.3.1">Specify how to perform pre-calculation of message size to determine need for block-wise.<a href="#appendix-C.4-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.3-1.4">
-            <p id="appendix-C.3-1.4.1">Cover exceptional cases where the 'l' value needs to be larger than 2^8.<a href="#appendix-C.3-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.4-1.4">
+            <p id="appendix-C.4-1.4.1">Cover exceptional cases where the 'l' value needs to be larger than 2^8.<a href="#appendix-C.4-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.3-1.5">
-            <p id="appendix-C.3-1.5.1">Note on relevance of 'l' limit considering maximum block size and typical MTU.<a href="#appendix-C.3-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.4-1.5">
+            <p id="appendix-C.4-1.5.1">Note on relevance of 'l' limit considering maximum block size and typical MTU.<a href="#appendix-C.4-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-00">
-<section id="appendix-C.4">
+<section id="appendix-C.5">
         <h3 id="name-version-00">
-<a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-version-00" class="section-name selfRef">Version -00</a>
+<a href="#appendix-C.5" class="section-number selfRef">C.5. </a><a href="#name-version-00" class="section-name selfRef">Version -00</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.4-1.1">
-            <p id="appendix-C.4-1.1.1">Editorial improvements.<a href="#appendix-C.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.5-1.1">
+            <p id="appendix-C.5-1.1.1">Editorial improvements.<a href="#appendix-C.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.2">
-            <p id="appendix-C.4-1.2.1">Extended terminology.<a href="#appendix-C.4-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.2">
+            <p id="appendix-C.5-1.2.1">Extended terminology.<a href="#appendix-C.5-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.3">
-            <p id="appendix-C.4-1.3.1">Recommendation on limits for CCM_8. Details in Appendix.<a href="#appendix-C.4-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.3">
+            <p id="appendix-C.5-1.3.1">Recommendation on limits for CCM_8. Details in Appendix.<a href="#appendix-C.5-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.4">
-            <p id="appendix-C.4-1.4.1">Example of method to estimate and not store 'count_q'.<a href="#appendix-C.4-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.4">
+            <p id="appendix-C.5-1.4.1">Example of method to estimate and not store 'count_q'.<a href="#appendix-C.5-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.5">
-            <p id="appendix-C.4-1.5.1">Split out material from Key Update for OSCORE draft into this new document.<a href="#appendix-C.4-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.5">
+            <p id="appendix-C.5-1.5.1">Split out material from Key Update for OSCORE draft into this new document.<a href="#appendix-C.5-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>

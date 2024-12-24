@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 9 January 2025                                      8 July 2024
+Expires: 27 June 2025                                   24 December 2024
 
 
                       Key Usage Limits for OSCORE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 January 2025.
+   This Internet-Draft will expire on 27 June 2025.
 
 Copyright Notice
 
@@ -88,10 +88,11 @@ Table of Contents
    Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
    Appendix B.  Estimation of 'count_q'
    Appendix C.  Document Updates
-     C.1.  Version -02 to -03
-     C.2.  Version -01 to -02
-     C.3.  Version -00 to -01
-     C.4.  Version -00
+     C.1.  Version -03 to -04
+     C.2.  Version -02 to -03
+     C.3.  Version -01 to -02
+     C.4.  Version -00 to -01
+     C.5.  Version -00
    Acknowledgments
    Authors' Addresses
 
@@ -197,7 +198,7 @@ Table of Contents
    For the algorithms shown in Figure 1 that can be used as AEAD
    Algorithm for OSCORE, the main property to achieve is having IA and
    CA values which are no larger than p = 2^-64, which will ensure a
-   safe security level for the AEAD Algorithm.  This can be entailed by
+   safe security level for the AEAD Algorithm.  This can be achieved by
    using the values q = 2^20, v = 2^20, and l = 2^10, that this document
    recommends to use for these algorithms.
 
@@ -300,11 +301,11 @@ Table of Contents
       Context, namely at time t_1, considering a lifetime value t_l.  In
       particular, t_l can be a default value (potentially differing
       between the two peers sharing the OSCORE Security Context), or can
-      alternatively be agreed by the two peers during the establishment
-      of the OSCORE Security Context.  For instance, this value may be
-      stored and/or transported in an OSCORE LwM2M object, or specified
-      as part of an EDHOC Application Profile [RFC9528] used when
-      running EDHOC for establishing the OSCORE Security Context.
+      be agreed by the two peers during the establishment of the OSCORE
+      Security Context.  For instance, this value may be stored and/or
+      transported in an OSCORE LwM2M object, or specified as part of an
+      EDHOC Application Profile Section 3.9 of [RFC9528] used when
+      executing EDHOC to establish the OSCORE Security Context.
       Regardless of how the lifetime value is determined, the 'exp'
       parameter is set to indicate the point in time corresponding to
       t_1 offset by t_l.
@@ -327,7 +328,7 @@ Table of Contents
       the Common Context, considering the properties of that algorithm.
       The value of 'limit_q' is determined according to Section 2.1.1.
 
-   Note for implementation: it is possible to avoid storing and
+   Note for implementors: it is possible to avoid storing and
    maintaining the counter 'count_q'.  Rather, an estimated value to be
    compared against 'limit_q' can be computed, by leveraging the Sender
    Sequence Number of the peer and (an estimate of) the other peer's.  A
@@ -344,9 +345,9 @@ Table of Contents
 
    *  'count_v': a non-negative integer counter, keeping track of the
       current 'v' value for the Recipient Key. At any time, 'count_v'
-      has as value the number of failed decryptions occurred on incoming
-      messages using the Recipient Key. The value of 'count_v' is set to
-      0 when establishing the Recipient Context.
+      has as value the number of failed decryptions occurred for
+      incoming messages using the Recipient Key. The value of 'count_v'
+      is set to 0 when establishing the Recipient Context.
 
    *  'limit_v': a non-negative integer, which specifies the highest
       value that 'count_v' is allowed to reach, before stopping using
@@ -371,11 +372,10 @@ Table of Contents
 
    If OSCORE peers need to transmit messages exceeding the maximum
    recommended size caclulated from 'l', CoAP Block-Wise transfers
-   [RFC7959] may be used as a means to split the whole, large content
-   into smaller segments.  The following steps can be adopted by a
-   client or server to determine whether the usage of block-wise
-   transfer is necessary for the transmission of a specific OSCORE
-   protected message.
+   [RFC7959] may be used as a means to split content into smaller
+   segments.  The following steps can be adopted by a client or server
+   to determine whether the usage of block-wise transfer is necessary
+   for the transmission of a specific OSCORE protected message.
 
    1.  The CoAP message to transmit is first produced.
 
@@ -453,9 +453,9 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-08, 1 April 2024,
+              irtf-cfrg-aead-limits-09, 9 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-08>.
+              aead-limits-09>.
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -490,7 +490,7 @@ Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
    IA = 2^-50 and a good CA = 2^-70 by considering the largest possible
    value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while
    still keeping a good security level.  Note that the value of 'l' does
-   not impact on IA, while CA displays good values for every considered
+   not impact the IA, while CA displays good values for every considered
    value of 'l'.
 
         +-----------------------+----------------+----------------+
@@ -553,7 +553,7 @@ Appendix B.  Estimation of 'count_q'
    *  If the outgoing message is a request, X is the highest Partial IV
       value marked as received in this peer's Replay Window plus 1, or 0
       if it has not accepted any protected message from the other peer
-      yet.  That is, X is the highest Partial IV specified in message
+      yet.  That is, X is the highest Partial IV specified in a message
       received from the other peer, i.e., the highest seen Sender
       Sequence Number of the other peer.  Note that, also in this case,
       X < SSN* always holds.
@@ -562,15 +562,19 @@ Appendix C.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-C.1.  Version -02 to -03
+C.1.  Version -03 to -04
+
+   *  Various editorial improvements.
+
+C.2.  Version -02 to -03
 
    *  Editorial improvements.
 
-C.2.  Version -01 to -02
+C.3.  Version -01 to -02
 
    *  Updated references.
 
-C.3.  Version -00 to -01
+C.4.  Version -00 to -01
 
    *  Extended discussion on setting the lifetime of OSCORE Security
       Contexts.
@@ -587,7 +591,7 @@ C.3.  Version -00 to -01
    *  Note on relevance of 'l' limit considering maximum block size and
       typical MTU.
 
-C.4.  Version -00
+C.5.  Version -00
 
    *  Editorial improvements.
 
