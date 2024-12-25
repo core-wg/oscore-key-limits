@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 27 June 2025                                   24 December 2024
+Expires: 28 June 2025                                   25 December 2024
 
 
                       Key Usage Limits for OSCORE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 June 2025.
+   This Internet-Draft will expire on 28 June 2025.
 
 Copyright Notice
 
@@ -364,11 +364,11 @@ Table of Contents
    messages with OSCORE as defined in this section.
 
    A limitation that is introduced is that, in order to not exceed the
-   selected value for 'l', the total size of the COSE plaintext,
-   authentication Tag, and possible cipher padding for a message must
-   not exceed the block size for the selected algorithm multiplied with
-   'l‘. The size of the COSE plaintext is calculated as described in
-   Section 5.3 of [RFC8613].
+   selected value for 'l', the total size of the COSE plaintext
+   [RFC9052], authentication Tag, and possible cipher padding for a
+   message must not exceed the block size for the selected algorithm
+   multiplied with 'l‘. The size of the COSE plaintext is calculated as
+   described in Section 5.3 of [RFC8613].
 
    If OSCORE peers need to transmit messages exceeding the maximum
    recommended size caclulated from 'l', CoAP Block-Wise transfers
@@ -472,6 +472,11 @@ Table of Contents
               RFC 8323, DOI 10.17487/RFC8323, February 2018,
               <https://www.rfc-editor.org/rfc/rfc8323>.
 
+   [RFC9052]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
+              Structures and Process", STD 96, RFC 9052,
+              DOI 10.17487/RFC9052, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9052>.
+
    [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
               "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
               DOI 10.17487/RFC9528, March 2024,
@@ -564,7 +569,9 @@ Appendix C.  Document Updates
 
 C.1.  Version -03 to -04
 
-   *  Various editorial improvements.
+   *  Minor editorial updates.
+
+   *  Improved references.
 
 C.2.  Version -02 to -03
 
