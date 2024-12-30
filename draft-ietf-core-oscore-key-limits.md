@@ -283,7 +283,7 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 ## Version -03 to -04 ## {#sec-03-04}
 
-* Minor editorial updates.
+* Various editorial updates.
 
 * Improved references.
 
