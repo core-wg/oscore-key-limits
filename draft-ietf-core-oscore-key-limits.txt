@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 6 August 2025                                   2 February 2025
+Expires: 8 January 2026                                      7 July 2025
 
 
                       Key Usage Limits for OSCORE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 August 2025.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -88,11 +88,12 @@ Table of Contents
    Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
    Appendix B.  Estimation of 'count_q'
    Appendix C.  Document Updates
-     C.1.  Version -03 to -04
-     C.2.  Version -02 to -03
-     C.3.  Version -01 to -02
-     C.4.  Version -00 to -01
-     C.5.  Version -00
+     C.1.  Version -04 to -05
+     C.2.  Version -03 to -04
+     C.3.  Version -02 to -03
+     C.4.  Version -01 to -02
+     C.5.  Version -00 to -01
+     C.6.  Version -00
    Acknowledgments
    Authors' Addresses
 
@@ -104,22 +105,22 @@ Table of Contents
    integrity, replay protection, as well as binding of response to
    request between a sender and a recipient.
 
-   In particular, OSCORE uses AEAD algorithms to provide confidentiality
-   and integrity of messages exchanged between two peers.  Due to known
-   issues allowing forgery attacks against AEAD algorithms, limits
-   should be followed on the number of times a specific key is used to
-   perform encryption or decryption [I-D.irtf-cfrg-aead-limits].
+   OSCORE uses AEAD algorithms to provide confidentiality and integrity
+   of messages exchanged between two peers.  Due to known issues
+   allowing forgery attacks against AEAD algorithms, limits should be
+   followed on the number of times a specific key is used to perform
+   encryption or decryption [I-D.irtf-cfrg-aead-limits].
 
-   The original OSCORE specification [RFC8613] does not consider such
-   key usage limits.  However, should they be exceeded, an adversary may
-   break the security properties of the AEAD algorithm, such as message
+   The OSCORE specification [RFC8613] does not consider such key usage
+   limits.  However, should they be exceeded, an adversary may break the
+   security properties of the used AEAD algorithm, such as message
    confidentiality and integrity, e.g., by performing a message forgery
-   attack.  Among other reasons, approaching the key usage limits
-   requires updating the OSCORE keying material before communications
-   can securely continue.  This document defines what steps an OSCORE
-   peer should take to preserve the security of its communications, by
-   stopping to use the OSCORE Security Context shared with another peer
-   when approaching the key usage limits.
+   attack.  This and other reasons require that peers who are
+   approaching the key usage limits update the OSCORE keying material
+   before communications can securely continue.  This document defines
+   what steps an OSCORE peer should take to preserve the security of its
+   communications, by stopping the use of an OSCORE Security Context
+   shared with another peer when approaching the key usage limits.
 
 1.1.  Terminology
 
@@ -137,8 +138,8 @@ Table of Contents
    This section details how key usage limits for AEAD algorithms can be
    considered when using OSCORE.  In particular, it discusses specific
    limits for common AEAD algorithms used with OSCORE; parameters to
-   track associated to an OSCORE Security Context; and additions to the
-   OSCORE message processing.
+   track associated with an OSCORE Security Context; and additions to
+   the OSCORE message processing.
 
 2.1.  Problem Overview
 
@@ -200,7 +201,7 @@ Table of Contents
    CA values which are no larger than p = 2^-64, which will ensure a
    safe security level for the AEAD Algorithm.  This can be achieved by
    using the values q = 2^20, v = 2^20, and l = 2^10, that this document
-   recommends to use for these algorithms.
+   recommends using for these algorithms.
 
    Figure 1 also shows the resulting IA and CA probabilities enjoyed by
    the considered algorithms, when taking the value of 'q', 'v' and 'l'
@@ -226,9 +227,9 @@ Table of Contents
    appropriate, since the resulting CA and IA values are not greater
    than the threshold value of 2^-50 defined in
    [I-D.irtf-cfrg-aead-limits], and thus yields an acceptable security
-   level.  Achieving smaller values of CA and IA would require to
-   inconveniently reduce 'q', 'v' or 'l', with no corresponding increase
-   in terms of security, as further elaborated in Appendix A.
+   level.  Achieving smaller values of CA and IA would require
+   inconveniently reducing 'q', 'v' or 'l', with no corresponding
+   increase in terms of security, as further elaborated in Appendix A.
 
        +------------------------+----------+----------+-----------+
        | Algorithm name         | l=2^6 in | l=2^8 in | l=2^10 in |
@@ -331,11 +332,11 @@ Table of Contents
    Note for implementors: it is possible to avoid storing and
    maintaining the counter 'count_q'.  Rather, an estimated value to be
    compared against 'limit_q' can be computed, by leveraging the Sender
-   Sequence Number of the peer and (an estimate of) the other peer's.  A
-   possible method to achieve this is described in Appendix B.  While
-   this relieves peers from storing and maintaining the precise
-   'count_q' value, it results in overestimating the number of
-   encryptions performed with a Sender Key. This in turn results in
+   Sequence Number (SSN) of the peer and (an estimate of) the other
+   peer's SSN.  A possible method to achieve this is described in
+   Appendix B.  While this relieves peers from storing and maintaining
+   the precise 'count_q' value, it results in overestimating the number
+   of encryptions performed with a Sender Key. This in turn results in
    approaching 'limit_q' sooner and thus in performing a key update
    procedure more frequently.
 
@@ -359,9 +360,9 @@ Table of Contents
 
 2.3.  OSCORE Message Processing
 
-   In order to keep track of the 'q' and 'v' values and ensure that AEAD
-   keys are not used beyond reaching their limits, OSCORE peers protect
-   messages with OSCORE as defined in this section.
+   To keep track of the 'q' and 'v' values and ensure that AEAD keys are
+   not used beyond reaching their limits, OSCORE peers protect messages
+   with OSCORE as defined in this section.
 
    A limitation that is introduced is that, in order to not exceed the
    selected value for 'l', the total size of the COSE plaintext
@@ -371,11 +372,11 @@ Table of Contents
    described in Section 5.3 of [RFC8613].
 
    If OSCORE peers need to transmit messages exceeding the maximum
-   recommended size caclulated from 'l', CoAP Block-Wise transfers
-   [RFC7959] may be used as a means to split content into smaller
-   segments.  The following steps can be adopted by a client or server
-   to determine whether the usage of block-wise transfer is necessary
-   for the transmission of a specific OSCORE protected message.
+   recommended size calculated from 'l', CoAP Block-Wise transfers
+   [RFC7959] may be used to split content into smaller segments.  The
+   following steps can be adopted by a client or server to determine
+   whether the usage of block-wise transfer is necessary for the
+   transmission of a specific OSCORE protected message.
 
    1.  The CoAP message to transmit is first produced.
 
@@ -453,9 +454,9 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-09, 9 October 2024,
+              irtf-cfrg-aead-limits-10, 8 April 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-09>.
+              aead-limits-10>.
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -567,21 +568,25 @@ Appendix C.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-C.1.  Version -03 to -04
+C.1.  Version -04 to -05
+
+   *  Editorial updates.
+
+C.2.  Version -03 to -04
 
    *  Various editorial updates.
 
    *  Improved references.
 
-C.2.  Version -02 to -03
+C.3.  Version -02 to -03
 
    *  Editorial improvements.
 
-C.3.  Version -01 to -02
+C.4.  Version -01 to -02
 
    *  Updated references.
 
-C.4.  Version -00 to -01
+C.5.  Version -00 to -01
 
    *  Extended discussion on setting the lifetime of OSCORE Security
       Contexts.
@@ -598,7 +603,7 @@ C.4.  Version -00 to -01
    *  Note on relevance of 'l' limit considering maximum block size and
       typical MTU.
 
-C.5.  Version -00
+C.6.  Version -00
 
    *  Editorial improvements.
 

@@ -10,22 +10,22 @@
 <meta content="
        Object Security for Constrained RESTful Environments (OSCORE) uses AEAD algorithms to ensure confidentiality and integrity of exchanged messages. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used for encryption or decryption. Among other reasons, approaching key usage limits requires updating the OSCORE keying material before communications can securely continue. This document defines how two OSCORE peers can follow these key usage limits and what steps they should take to preserve the security of their communications. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-core-oscore-key-limits-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.8
+  xml2rfc 3.29.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
-    lxml 5.3.0
-    platformdirs 4.3.6
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-core-oscore-key-limits.xml" rel="alternate" type="application/rfc+xml">
@@ -436,7 +436,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1045,11 +1045,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Key Usage Limits for OSCORE</td>
-<td class="right">February 2025</td>
+<td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Höglund &amp; Tiloca</td>
-<td class="center">Expires 6 August 2025</td>
+<td class="center">Expires 8 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-oscore-key-limits-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-02" class="published">2 February 2025</time>
+<time datetime="2025-07-07" class="published">7 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-06">6 August 2025</time></dd>
+<dd class="expires"><time datetime="2026-01-08">8 January 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1116,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1218,19 +1218,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.8.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-document-updates" class="internal xref">Document Updates</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-version-03-to-04" class="internal xref">Version -03 to -04</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-version-04-to-05" class="internal xref">Version -04 to -05</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-version-03-to-04" class="internal xref">Version -03 to -04</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-version-02-to-03" class="internal xref">Version -02 to -03</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
-                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-C.4" class="auto internal xref">C.4</a>.  <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
+                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-C.4" class="auto internal xref">C.4</a>.  <a href="#name-version-01-to-02" class="internal xref">Version -01 to -02</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
-                <p id="section-toc.1-1.8.2.5.1"><a href="#appendix-C.5" class="auto internal xref">C.5</a>.  <a href="#name-version-00" class="internal xref">Version -00</a></p>
+                <p id="section-toc.1-1.8.2.5.1"><a href="#appendix-C.5" class="auto internal xref">C.5</a>.  <a href="#name-version-00-to-01" class="internal xref">Version -00 to -01</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
+                <p id="section-toc.1-1.8.2.6.1"><a href="#appendix-C.6" class="auto internal xref">C.6</a>.  <a href="#name-version-00" class="internal xref">Version -00</a></p>
 </li>
             </ul>
 </li>
@@ -1250,8 +1253,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Object Security for Constrained RESTful Environments (OSCORE) <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> provides end-to-end protection of CoAP <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> messages at the application-layer, ensuring message confidentiality and integrity, replay protection, as well as binding of response to request between a sender and a recipient.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">In particular, OSCORE uses AEAD algorithms to provide confidentiality and integrity of messages exchanged between two peers. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used to perform encryption or decryption <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The original OSCORE specification <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> does not consider such key usage limits. However, should they be exceeded, an adversary may break the security properties of the AEAD algorithm, such as message confidentiality and integrity, e.g., by performing a message forgery attack. Among other reasons, approaching the key usage limits requires updating the OSCORE keying material before communications can securely continue. This document defines what steps an OSCORE peer should take to preserve the security of its communications, by stopping to use the OSCORE Security Context shared with another peer when approaching the key usage limits.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-2">OSCORE uses AEAD algorithms to provide confidentiality and integrity of messages exchanged between two peers. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used to perform encryption or decryption <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The OSCORE specification <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> does not consider such key usage limits. However, should they be exceeded, an adversary may break the security properties of the used AEAD algorithm, such as message confidentiality and integrity, e.g., by performing a message forgery attack. This and other reasons require that peers who are approaching the key usage limits update the OSCORE keying material before communications can securely continue. This document defines what steps an OSCORE peer should take to preserve the security of its communications, by stopping the use of an OSCORE Security Context shared with another peer when approaching the key usage limits.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <div id="terminology">
 <section id="section-1.1">
         <h3 id="name-terminology">
@@ -1268,7 +1271,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-aead-key-usage-limits-in-os">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-aead-key-usage-limits-in-os" class="section-name selfRef">AEAD Key Usage Limits in OSCORE</a>
       </h2>
-<p id="section-2-1">This section details how key usage limits for AEAD algorithms can be considered when using OSCORE. In particular, it discusses specific limits for common AEAD algorithms used with OSCORE; parameters to track associated to an OSCORE Security Context; and additions to the OSCORE message processing.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">This section details how key usage limits for AEAD algorithms can be considered when using OSCORE. In particular, it discusses specific limits for common AEAD algorithms used with OSCORE; parameters to track associated with an OSCORE Security Context; and additions to the OSCORE message processing.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="problem-overview">
 <section id="section-2.1">
         <h3 id="name-problem-overview">
@@ -1304,7 +1307,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.1.1" class="section-number selfRef">2.1.1. </a><a href="#name-limits-for-q-and-v" class="section-name selfRef">Limits for 'q' and 'v'</a>
           </h4>
 <p id="section-2.1.1-1">Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>. These formulas take as input specific values for 'q' and 'v' (see section <a href="#problem-overview" class="auto internal xref">Section 2.1</a>) and for 'l', i.e., the maximum length of each message (in cipher blocks).<a href="#section-2.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1.1-2">For the algorithms shown in <a href="#algorithm-limits" class="auto internal xref">Figure 1</a> that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-2">For the algorithms shown in <a href="#algorithm-limits" class="auto internal xref">Figure 1</a> that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends using for these algorithms.<a href="#section-2.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1.1-3"><a href="#algorithm-limits" class="auto internal xref">Figure 1</a> also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>.<a href="#section-2.1.1-3" class="pilcrow">¶</a></p>
 <span id="name-probabilities-for-algorithm"></span><div id="algorithm-limits">
 <figure id="figure-1">
@@ -1324,7 +1327,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-probabilities-for-algorithm" class="selfRef">Probabilities for algorithms based on chosen q, v and l values.</a>
             </figcaption></figure>
 </div>
-<p id="section-2.1.1-5">When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD_AES_128_CCM_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require to inconveniently reduce 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in <a href="#aead-aes-128-ccm-8-details" class="auto internal xref">Appendix A</a>.<a href="#section-2.1.1-5" class="pilcrow">¶</a></p>
+<p id="section-2.1.1-5">When AEAD_AES_128_CCM_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD_AES_128_CCM_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in <span>[<a href="#I-D.irtf-cfrg-aead-limits" class="cite xref">I-D.irtf-cfrg-aead-limits</a>]</span>, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require inconveniently reducing 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in <a href="#aead-aes-128-ccm-8-details" class="auto internal xref">Appendix A</a>.<a href="#section-2.1.1-5" class="pilcrow">¶</a></p>
 <span id="name-maximum-length-of-each-mess"></span><div id="l-values-as-bytes">
 <figure id="figure-2">
             <div class="alignCenter art-text artwork" id="section-2.1.1-6.1">
@@ -1391,7 +1394,7 @@ The value of 'exp' must be set upon installing the OSCORE Security Context, name
 The value of 'limit_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit_q' is determined according to <a href="#limits" class="auto internal xref">Section 2.1.1</a>.<a href="#section-2.2.2-2.2.2" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-2.2.2-3">Note for implementors: it is possible to avoid storing and maintaining the counter 'count_q'. Rather, an estimated value to be compared against 'limit_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in <a href="#estimation-count-q" class="auto internal xref">Appendix B</a>. While this relieves peers from storing and maintaining the precise 'count_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit_q' sooner and thus in performing a key update procedure more frequently.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-2.2.2-3">Note for implementors: it is possible to avoid storing and maintaining the counter 'count_q'. Rather, an estimated value to be compared against 'limit_q' can be computed, by leveraging the Sender Sequence Number (SSN) of the peer and (an estimate of) the other peer's SSN. A possible method to achieve this is described in <a href="#estimation-count-q" class="auto internal xref">Appendix B</a>. While this relieves peers from storing and maintaining the precise 'count_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit_q' sooner and thus in performing a key update procedure more frequently.<a href="#section-2.2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="recipient-context">
@@ -1419,9 +1422,9 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
         <h3 id="name-oscore-message-processing">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-oscore-message-processing" class="section-name selfRef">OSCORE Message Processing</a>
         </h3>
-<p id="section-2.3-1">In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">To keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in <span><a href="https://rfc-editor.org/rfc/rfc8613#section-5.3" class="relref">Section 5.3</a> of [<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
-<p id="section-2.3-3">If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> may be used as a means to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+<p id="section-2.3-3">If OSCORE peers need to transmit messages exceeding the maximum recommended size calculated from 'l', CoAP Block-Wise transfers <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span> may be used to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2.3-4">
 <li id="section-2.3-4.1">
             <p id="section-2.3-4.1.1">The CoAP message to transmit is first produced.<a href="#section-2.3-4.1.1" class="pilcrow">¶</a></p>
@@ -1512,7 +1515,7 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <dl class="references">
 <dt id="I-D.irtf-cfrg-aead-limits">[I-D.irtf-cfrg-aead-limits]</dt>
         <dd>
-<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-09</span>, <time datetime="2024-10-09" class="refDate">9 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Günther, F.</span>, <span class="refAuthor">Thomson, M.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Usage Limits on AEAD Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-cfrg-aead-limits-10</span>, <time datetime="2025-04-08" class="refDate">8 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10">https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-aead-limits-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7519">[RFC7519]</dt>
         <dd>
@@ -1619,89 +1622,101 @@ The value of 'limit_v' depends on the AEAD algorithm specified in the Common Con
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-updates" class="section-name selfRef">Document Updates</a>
       </h2>
 <p id="appendix-C-1">This section is to be removed before publishing as an RFC.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<div id="sec-03-04">
+<div id="sec-04-05">
 <section id="appendix-C.1">
-        <h3 id="name-version-03-to-04">
-<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-version-03-to-04" class="section-name selfRef">Version -03 to -04</a>
+        <h3 id="name-version-04-to-05">
+<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-version-04-to-05" class="section-name selfRef">Version -04 to -05</a>
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-C.1-1.1">
-            <p id="appendix-C.1-1.1.1">Various editorial updates.<a href="#appendix-C.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-C.1-1.1.1">Editorial updates.<a href="#appendix-C.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.1-1.2">
-            <p id="appendix-C.1-1.2.1">Improved references.<a href="#appendix-C.1-1.2.1" class="pilcrow">¶</a></p>
+        </ul>
+</section>
+</div>
+<div id="sec-03-04">
+<section id="appendix-C.2">
+        <h3 id="name-version-03-to-04">
+<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-version-03-to-04" class="section-name selfRef">Version -03 to -04</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-C.2-1.1">
+            <p id="appendix-C.2-1.1.1">Various editorial updates.<a href="#appendix-C.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-C.2-1.2">
+            <p id="appendix-C.2-1.2.1">Improved references.<a href="#appendix-C.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-02-03">
-<section id="appendix-C.2">
+<section id="appendix-C.3">
         <h3 id="name-version-02-to-03">
-<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
+<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-version-02-to-03" class="section-name selfRef">Version -02 to -03</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.2-1.1">
-            <p id="appendix-C.2-1.1.1">Editorial improvements.<a href="#appendix-C.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.3-1.1">
+            <p id="appendix-C.3-1.1.1">Editorial improvements.<a href="#appendix-C.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-01-02">
-<section id="appendix-C.3">
+<section id="appendix-C.4">
         <h3 id="name-version-01-to-02">
-<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
+<a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-version-01-to-02" class="section-name selfRef">Version -01 to -02</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.3-1.1">
-            <p id="appendix-C.3-1.1.1">Updated references.<a href="#appendix-C.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.4-1.1">
+            <p id="appendix-C.4-1.1.1">Updated references.<a href="#appendix-C.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-00-01">
-<section id="appendix-C.4">
+<section id="appendix-C.5">
         <h3 id="name-version-00-to-01">
-<a href="#appendix-C.4" class="section-number selfRef">C.4. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
+<a href="#appendix-C.5" class="section-number selfRef">C.5. </a><a href="#name-version-00-to-01" class="section-name selfRef">Version -00 to -01</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.4-1.1">
-            <p id="appendix-C.4-1.1.1">Extended discussion on setting the lifetime of OSCORE Security Contexts.<a href="#appendix-C.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.5-1.1">
+            <p id="appendix-C.5-1.1.1">Extended discussion on setting the lifetime of OSCORE Security Contexts.<a href="#appendix-C.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.2">
-            <p id="appendix-C.4-1.2.1">Mention adjusting the 'q' and 'v' values to compensate for a larger 'l' value.<a href="#appendix-C.4-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.2">
+            <p id="appendix-C.5-1.2.1">Mention adjusting the 'q' and 'v' values to compensate for a larger 'l' value.<a href="#appendix-C.5-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.3">
-            <p id="appendix-C.4-1.3.1">Specify how to perform pre-calculation of message size to determine need for block-wise.<a href="#appendix-C.4-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.3">
+            <p id="appendix-C.5-1.3.1">Specify how to perform pre-calculation of message size to determine need for block-wise.<a href="#appendix-C.5-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.4">
-            <p id="appendix-C.4-1.4.1">Cover exceptional cases where the 'l' value needs to be larger than 2^8.<a href="#appendix-C.4-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.4">
+            <p id="appendix-C.5-1.4.1">Cover exceptional cases where the 'l' value needs to be larger than 2^8.<a href="#appendix-C.5-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.4-1.5">
-            <p id="appendix-C.4-1.5.1">Note on relevance of 'l' limit considering maximum block size and typical MTU.<a href="#appendix-C.4-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.5-1.5">
+            <p id="appendix-C.5-1.5.1">Note on relevance of 'l' limit considering maximum block size and typical MTU.<a href="#appendix-C.5-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="sec-00">
-<section id="appendix-C.5">
+<section id="appendix-C.6">
         <h3 id="name-version-00">
-<a href="#appendix-C.5" class="section-number selfRef">C.5. </a><a href="#name-version-00" class="section-name selfRef">Version -00</a>
+<a href="#appendix-C.6" class="section-number selfRef">C.6. </a><a href="#name-version-00" class="section-name selfRef">Version -00</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-C.5-1.1">
-            <p id="appendix-C.5-1.1.1">Editorial improvements.<a href="#appendix-C.5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.6-1.1">
+            <p id="appendix-C.6-1.1.1">Editorial improvements.<a href="#appendix-C.6-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.5-1.2">
-            <p id="appendix-C.5-1.2.1">Extended terminology.<a href="#appendix-C.5-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.6-1.2">
+            <p id="appendix-C.6-1.2.1">Extended terminology.<a href="#appendix-C.6-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.5-1.3">
-            <p id="appendix-C.5-1.3.1">Recommendation on limits for CCM_8. Details in Appendix.<a href="#appendix-C.5-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.6-1.3">
+            <p id="appendix-C.6-1.3.1">Recommendation on limits for CCM_8. Details in Appendix.<a href="#appendix-C.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.5-1.4">
-            <p id="appendix-C.5-1.4.1">Example of method to estimate and not store 'count_q'.<a href="#appendix-C.5-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.6-1.4">
+            <p id="appendix-C.6-1.4.1">Example of method to estimate and not store 'count_q'.<a href="#appendix-C.6-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-C.5-1.5">
-            <p id="appendix-C.5-1.5.1">Split out material from Key Update for OSCORE draft into this new document.<a href="#appendix-C.5-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.6-1.5">
+            <p id="appendix-C.6-1.5.1">Split out material from Key Update for OSCORE draft into this new document.<a href="#appendix-C.6-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
