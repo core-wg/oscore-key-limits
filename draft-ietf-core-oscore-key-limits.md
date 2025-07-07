@@ -63,9 +63,9 @@ Object Security for Constrained RESTful Environments (OSCORE) uses AEAD algorith
 
 Object Security for Constrained RESTful Environments (OSCORE) {{RFC8613}} provides end-to-end protection of CoAP {{RFC7252}} messages at the application-layer, ensuring message confidentiality and integrity, replay protection, as well as binding of response to request between a sender and a recipient.
 
-In particular, OSCORE uses AEAD algorithms to provide confidentiality and integrity of messages exchanged between two peers. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used to perform encryption or decryption {{I-D.irtf-cfrg-aead-limits}}.
+OSCORE uses AEAD algorithms to provide confidentiality and integrity of messages exchanged between two peers. Due to known issues allowing forgery attacks against AEAD algorithms, limits should be followed on the number of times a specific key is used to perform encryption or decryption {{I-D.irtf-cfrg-aead-limits}}.
 
-The original OSCORE specification {{RFC8613}} does not consider such key usage limits. However, should they be exceeded, an adversary may break the security properties of the AEAD algorithm, such as message confidentiality and integrity, e.g., by performing a message forgery attack. Among other reasons, approaching the key usage limits requires updating the OSCORE keying material before communications can securely continue. This document defines what steps an OSCORE peer should take to preserve the security of its communications, by stopping to use the OSCORE Security Context shared with another peer when approaching the key usage limits.
+The OSCORE specification {{RFC8613}} does not consider such key usage limits. However, should they be exceeded, an adversary may break the security properties of the used AEAD algorithm, such as message confidentiality and integrity, e.g., by performing a message forgery attack. This and other reasons require that peers who are approaching the key usage limits update the OSCORE keying material before communications can securely continue. This document defines what steps an OSCORE peer should take to preserve the security of its communications, by stopping the use of an OSCORE Security Context shared with another peer when approaching the key usage limits.
 
 ## Terminology ## {#terminology}
 
@@ -75,7 +75,7 @@ Readers are expected to be familiar with the terms and concepts related to CoAP 
 
 # AEAD Key Usage Limits in OSCORE
 
-This section details how key usage limits for AEAD algorithms can be considered when using OSCORE. In particular, it discusses specific limits for common AEAD algorithms used with OSCORE; parameters to track associated to an OSCORE Security Context; and additions to the OSCORE message processing.
+This section details how key usage limits for AEAD algorithms can be considered when using OSCORE. In particular, it discusses specific limits for common AEAD algorithms used with OSCORE; parameters to track associated with an OSCORE Security Context; and additions to the OSCORE message processing.
 
 ## Problem Overview {#problem-overview}
 
@@ -107,7 +107,7 @@ Therefore, in order to preserve the security of the used AEAD algorithm, OSCORE 
 
 Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in {{I-D.irtf-cfrg-aead-limits}}. These formulas take as input specific values for 'q' and 'v' (see section {{problem-overview}}) and for 'l', i.e., the maximum length of each message (in cipher blocks).
 
-For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends to use for these algorithms.
+For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends using for these algorithms.
 
 {{algorithm-limits}} also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
@@ -123,7 +123,7 @@ For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algori
 ~~~~~~~~~~~
 {: #algorithm-limits title="Probabilities for algorithms based on chosen q, v and l values." artwork-align="center"}
 
-When AEAD\_AES\_128\_CCM\_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD\_AES\_128\_CCM\_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require to inconveniently reduce 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in {{aead-aes-128-ccm-8-details}}.
+When AEAD\_AES\_128\_CCM\_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD\_AES\_128\_CCM\_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require inconveniently reducing 'q', 'v' or 'l', with no corresponding increase in terms of security, as further elaborated in {{aead-aes-128-ccm-8-details}}.
 
 ~~~~~~~~~~~
 +------------------------+----------+----------+-----------+
@@ -169,7 +169,7 @@ The Sender Context has the following associated parameters.
 
    The value of 'limit\_q' depends on the AEAD algorithm specified in the Common Context, considering the properties of that algorithm. The value of 'limit\_q' is determined according to {{limits}}.
 
-Note for implementors: it is possible to avoid storing and maintaining the counter 'count\_q'. Rather, an estimated value to be compared against 'limit\_q' can be computed, by leveraging the Sender Sequence Number of the peer and (an estimate of) the other peer's. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count\_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit\_q' sooner and thus in performing a key update procedure more frequently.
+Note for implementors: it is possible to avoid storing and maintaining the counter 'count\_q'. Rather, an estimated value to be compared against 'limit\_q' can be computed, by leveraging the Sender Sequence Number (SSN) of the peer and (an estimate of) the other peer's SSN. A possible method to achieve this is described in {{estimation-count-q}}. While this relieves peers from storing and maintaining the precise 'count\_q' value, it results in overestimating the number of encryptions performed with a Sender Key. This in turn results in approaching 'limit\_q' sooner and thus in performing a key update procedure more frequently.
 
 ### Recipient Context # {#recipient-context}
 
@@ -183,11 +183,11 @@ The Recipient Context has the following associated parameters.
 
 ## OSCORE Message Processing #
 
-In order to keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.
+To keep track of the 'q' and 'v' values and ensure that AEAD keys are not used beyond reaching their limits, OSCORE peers protect messages with OSCORE as defined in this section.
 
 A limitation that is introduced is that, in order to not exceed the selected value for 'l', the total size of the COSE plaintext {{RFC9052}}, authentication Tag, and possible cipher padding for a message must not exceed the block size for the selected algorithm multiplied with 'l‘. The size of the COSE plaintext is calculated as described in {{Section 5.3 of RFC8613}}.
 
-If OSCORE peers need to transmit messages exceeding the maximum recommended size caclulated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used as a means to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
+If OSCORE peers need to transmit messages exceeding the maximum recommended size calculated from 'l', CoAP Block-Wise transfers {{RFC7959}} may be used to split content into smaller segments. The following steps can be adopted by a client or server to determine whether the usage of block-wise transfer is necessary for the transmission of a specific OSCORE protected message.
 
 1. The CoAP message to transmit is first produced.
 
@@ -280,6 +280,10 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -04 to -05 ## {#sec-04-05}
+
+* Editorial updates.
 
 ## Version -03 to -04 ## {#sec-03-04}
 
