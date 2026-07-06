@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 8 January 2026                                      7 July 2025
+Expires: 7 January 2027                                      6 July 2026
 
 
                       Key Usage Limits for OSCORE
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 7 January 2027.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -88,12 +88,13 @@ Table of Contents
    Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
    Appendix B.  Estimation of 'count_q'
    Appendix C.  Document Updates
-     C.1.  Version -04 to -05
-     C.2.  Version -03 to -04
-     C.3.  Version -02 to -03
-     C.4.  Version -01 to -02
-     C.5.  Version -00 to -01
-     C.6.  Version -00
+     C.1.  Version -05 to -06
+     C.2.  Version -04 to -05
+     C.3.  Version -03 to -04
+     C.4.  Version -02 to -03
+     C.5.  Version -01 to -02
+     C.6.  Version -00 to -01
+     C.7.  Version -00
    Acknowledgments
    Authors' Addresses
 
@@ -193,8 +194,8 @@ Table of Contents
    Formulas for calculating the security levels, as Integrity Advantage
    (IA) and Confidentiality Advantage (CA) probabilities, are presented
    in [I-D.irtf-cfrg-aead-limits].  These formulas take as input
-   specific values for 'q' and 'v' (see section Section 2.1) and for
-   'l', i.e., the maximum length of each message (in cipher blocks).
+   specific values for 'q' and 'v' (see Section 2.1) and for 'l', i.e.,
+   the maximum length of each message (in cipher blocks).
 
    For the algorithms shown in Figure 1 that can be used as AEAD
    Algorithm for OSCORE, the main property to achieve is having IA and
@@ -228,8 +229,9 @@ Table of Contents
    than the threshold value of 2^-50 defined in
    [I-D.irtf-cfrg-aead-limits], and thus yields an acceptable security
    level.  Achieving smaller values of CA and IA would require
-   inconveniently reducing 'q', 'v' or 'l', with no corresponding
-   increase in terms of security, as further elaborated in Appendix A.
+   inconveniently reducing 'q', 'v' or 'l', with no additional security
+   benefit since the threshold is already met, as further elaborated in
+   Appendix A.
 
        +------------------------+----------+----------+-----------+
        | Algorithm name         | l=2^6 in | l=2^8 in | l=2^10 in |
@@ -260,7 +262,9 @@ Table of Contents
    enabling use of larger messages over reliable transports such as TCP
    or WebSockets (see [RFC8323]).  In case the OSCORE peers wish to take
    full advantage of BERT functionality and the large message sizes it
-   allows for, the OSCORE peers must use higher values of 'l'.
+   allows for, the OSCORE peers must use higher values of 'l'.  The
+   maximum length of each message in bytes for different values of 'l'
+   and different AEAD algorithms is shown in Figure 2.
 
    An alternative means of allowing for larger values of 'l', while
    still maintaining the security properties of the used AEAD algorithm,
@@ -295,8 +299,8 @@ Table of Contents
       continue OSCORE-protected communications with the other peer.
       That is, the expiration of an OSCORE Security Context means that
       the current Sender Key must no longer be used for protecting
-      outgoing messages, and the Recipient Key must no longer be used
-      for unprotecting incoming messages.
+      outgoing messages, and the Recipient Key must no longer to decrypt
+      and verify incoming messages.
 
       The value of 'exp' must be set upon installing the OSCORE Security
       Context, namely at time t_1, considering a lifetime value t_l.  In
@@ -304,9 +308,9 @@ Table of Contents
       between the two peers sharing the OSCORE Security Context), or can
       be agreed by the two peers during the establishment of the OSCORE
       Security Context.  For instance, this value may be stored and/or
-      transported in an OSCORE LwM2M object, or specified as part of an
-      EDHOC Application Profile Section 3.9 of [RFC9528] used when
-      executing EDHOC to establish the OSCORE Security Context.
+      transported in the OSCORE LwM2M object [LwM2M], or specified as
+      part of an EDHOC Application Profile Section 3.9 of [RFC9528] used
+      when executing EDHOC to establish the OSCORE Security Context.
       Regardless of how the lifetime value is determined, the 'exp'
       parameter is set to indicate the point in time corresponding to
       t_1 offset by t_l.
@@ -329,7 +333,7 @@ Table of Contents
       the Common Context, considering the properties of that algorithm.
       The value of 'limit_q' is determined according to Section 2.1.1.
 
-   Note for implementors: it is possible to avoid storing and
+   Note for implementers: it is possible to avoid storing and
    maintaining the counter 'count_q'.  Rather, an estimated value to be
    compared against 'limit_q' can be computed, by leveraging the Sender
    Sequence Number (SSN) of the peer and (an estimate of) the other
@@ -346,9 +350,9 @@ Table of Contents
 
    *  'count_v': a non-negative integer counter, keeping track of the
       current 'v' value for the Recipient Key. At any time, 'count_v'
-      has as value the number of failed decryptions occurred for
-      incoming messages using the Recipient Key. The value of 'count_v'
-      is set to 0 when establishing the Recipient Context.
+      has as value the number of failed decryptions that have occurred
+      for incoming messages using the Recipient Key. The value of
+      'count_v' is set to 0 when establishing the Recipient Context.
 
    *  'limit_v': a non-negative integer, which specifies the highest
       value that 'count_v' is allowed to reach, before stopping using
@@ -366,9 +370,9 @@ Table of Contents
 
    A limitation that is introduced is that, in order to not exceed the
    selected value for 'l', the total size of the COSE plaintext
-   [RFC9052], authentication Tag, and possible cipher padding for a
+   [RFC9052], authentication tag, and possible ciphertext padding for a
    message must not exceed the block size for the selected algorithm
-   multiplied with 'l‘. The size of the COSE plaintext is calculated as
+   multiplied by 'l'.  The size of the COSE plaintext is calculated as
    described in Section 5.3 of [RFC8613].
 
    If OSCORE peers need to transmit messages exceeding the maximum
@@ -454,9 +458,16 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-10, 8 April 2025,
+              irtf-cfrg-aead-limits-11, 4 December 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-10>.
+              aead-limits-11>.
+
+   [LwM2M]    Open Mobile Alliance, "Lightweight Machine to Machine
+              Technical Specification - Core, Approved Version 1.2, OMA-
+              TS-LightweightM2M_Core-V1_2-20201110-A", November 2020,
+              <http://www.openmobilealliance.org/release/LightweightM2M/
+              V1_2-20201110-A/OMA-TS-LightweightM2M_Core-
+              V1_2-20201110-A.pdf>.
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -494,7 +505,7 @@ Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
 
    As shown in Figure 3, it is especially possible to achieve the lowest
    IA = 2^-50 and a good CA = 2^-70 by considering the largest possible
-   value of the (q, v, l) triplet equal to (2^20, 2^10, 2^8), while
+   value of the (q, v, l) triplet equal to (2^20, 2^14, 2^8), while
    still keeping a good security level.  Note that the value of 'l' does
    not impact the IA, while CA displays good values for every considered
    value of 'l'.
@@ -544,9 +555,9 @@ Appendix B.  Estimation of 'count_q'
 
    *  SSN is the current value of this peer's Sender Sequence Number.
 
-   *  SSN* is the current value of other peer's Sender Sequence Number.
-      That is, SSN* is an overestimation of the responses without
-      Partial IV that this peer has sent.
+   *  SSN* is the current value of the other peer's Sender Sequence
+      Number.  That is, SSN* is an overestimation of the responses
+      without Partial IV that this peer has sent.
 
    Thus, when protecting an outgoing message (see Section 2.3.1), the
    peer aborts the message processing if the estimated est_q > limit_q,
@@ -559,34 +570,37 @@ Appendix B.  Estimation of 'count_q'
    *  If the outgoing message is a request, X is the highest Partial IV
       value marked as received in this peer's Replay Window plus 1, or 0
       if it has not accepted any protected message from the other peer
-      yet.  That is, X is the highest Partial IV specified in a message
-      received from the other peer, i.e., the highest seen Sender
-      Sequence Number of the other peer.  Note that, also in this case,
-      X < SSN* always holds.
+      yet.  Note that, also in this case, X < SSN* always holds.
 
 Appendix C.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-C.1.  Version -04 to -05
+C.1.  Version -05 to -06
+
+   *  Added missing references.
+
+   *  Revised content.
+
+C.2.  Version -04 to -05
 
    *  Editorial updates.
 
-C.2.  Version -03 to -04
+C.3.  Version -03 to -04
 
    *  Various editorial updates.
 
    *  Improved references.
 
-C.3.  Version -02 to -03
+C.4.  Version -02 to -03
 
    *  Editorial improvements.
 
-C.4.  Version -01 to -02
+C.5.  Version -01 to -02
 
    *  Updated references.
 
-C.5.  Version -00 to -01
+C.6.  Version -00 to -01
 
    *  Extended discussion on setting the lifetime of OSCORE Security
       Contexts.
@@ -603,7 +617,7 @@ C.5.  Version -00 to -01
    *  Note on relevance of 'l' limit considering maximum block size and
       typical MTU.
 
-C.6.  Version -00
+C.7.  Version -00
 
    *  Editorial improvements.
 
