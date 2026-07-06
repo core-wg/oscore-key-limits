@@ -287,11 +287,15 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
 
-## Version -05 to -06 ## {#sec-05-06}
+## Version -06 to -07 ## {#sec-06-07}
 
 * Added missing references.
 
 * Revised content.
+
+## Version -05 to -06 ## {#sec-05-06}
+
+* Minor revision.
 
 ## Version -04 to -05 ## {#sec-04-05}
 
