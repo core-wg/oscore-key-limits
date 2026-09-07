@@ -5,7 +5,7 @@
 CoRE Working Group                                            R. Höglund
 Internet-Draft                                                 M. Tiloca
 Intended status: Informational                                   RISE AB
-Expires: 7 January 2027                                      6 July 2026
+Expires: 11 March 2027                                  7 September 2026
 
 
                       Key Usage Limits for OSCORE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2027.
+   This Internet-Draft will expire on 11 March 2027.
 
 Copyright Notice
 
@@ -88,14 +88,15 @@ Table of Contents
    Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
    Appendix B.  Estimation of 'count_q'
    Appendix C.  Document Updates
-     C.1.  Version -06 to -07
-     C.2.  Version -05 to -06
-     C.3.  Version -04 to -05
-     C.4.  Version -03 to -04
-     C.5.  Version -02 to -03
-     C.6.  Version -01 to -02
-     C.7.  Version -00 to -01
-     C.8.  Version -00
+     C.1.  Version -07 to -08
+     C.2.  Version -06 to -07
+     C.3.  Version -05 to -06
+     C.4.  Version -04 to -05
+     C.5.  Version -03 to -04
+     C.6.  Version -02 to -03
+     C.7.  Version -01 to -02
+     C.8.  Version -00 to -01
+     C.9.  Version -00
    Acknowledgments
    Authors' Addresses
 
@@ -202,11 +203,11 @@ Table of Contents
    Algorithm for OSCORE, the main property to achieve is having IA and
    CA values which are no larger than p = 2^-64, which will ensure a
    safe security level for the AEAD Algorithm.  This can be achieved by
-   using the values q = 2^20, v = 2^20, and l = 2^10, that this document
-   recommends using for these algorithms.
+   using the values q = 2^20, v = 2^20, and l = 2^10, which this
+   document recommends using for these algorithms.
 
    Figure 1 also shows the resulting IA and CA probabilities enjoyed by
-   the considered algorithms, when taking the value of 'q', 'v' and 'l'
+   the considered algorithms, when taking the values of 'q', 'v' and 'l'
    above as input to the formulas defined in
    [I-D.irtf-cfrg-aead-limits].
 
@@ -228,7 +229,7 @@ Table of Contents
    using the triplet (q, v, l) = (2^20, 2^14, 2^8).  This is
    appropriate, since the resulting CA and IA values are not greater
    than the threshold value of 2^-50 defined in
-   [I-D.irtf-cfrg-aead-limits], and thus yields an acceptable security
+   [I-D.irtf-cfrg-aead-limits], thus yielding an acceptable security
    level.  Achieving smaller values of CA and IA would require
    inconveniently reducing 'q', 'v' or 'l', with no additional security
    benefit since the threshold is already met, as further elaborated in
@@ -270,11 +271,10 @@ Table of Contents
    An alternative means of allowing for larger values of 'l', while
    still maintaining the security properties of the used AEAD algorithm,
    is to adjust the 'q' and 'v' values to compensate.  In practice, this
-   means reducing the value of 'q' and 'v' considering the new value of
-   'l', to ensure an acceptably low value of the IA and CA
-   probabilities.  A reasonable target for the IA and CA probability
-   values is the threshold value of 2^-50 defined in
-   [I-D.irtf-cfrg-aead-limits].
+   means reducing the values of 'q' and 'v' considering the new value of
+   'l', to ensure acceptably low values of the IA and CA probabilities.
+   A reasonable target for the IA and CA probability values is the
+   threshold value of 2^-50 defined in [I-D.irtf-cfrg-aead-limits].
 
 2.2.  Additional Information in the Security Context
 
@@ -300,8 +300,8 @@ Table of Contents
       continue OSCORE-protected communications with the other peer.
       That is, the expiration of an OSCORE Security Context means that
       the current Sender Key must no longer be used for protecting
-      outgoing messages, and the Recipient Key must no longer to decrypt
-      and verify incoming messages.
+      outgoing messages, and the Recipient Key must no longer be used to
+      decrypt and verify incoming messages.
 
       The value of 'exp' must be set upon installing the OSCORE Security
       Context, namely at time t_1, considering a lifetime value t_l.  In
@@ -459,9 +459,9 @@ Table of Contents
    [I-D.irtf-cfrg-aead-limits]
               Günther, F., Thomson, M., and C. A. Wood, "Usage Limits on
               AEAD Algorithms", Work in Progress, Internet-Draft, draft-
-              irtf-cfrg-aead-limits-11, 4 December 2025,
+              irtf-cfrg-aead-limits-13, 3 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-
-              aead-limits-11>.
+              aead-limits-13>.
 
    [LwM2M]    Open Mobile Alliance, "Lightweight Machine to Machine
               Technical Specification - Core, Approved Version 1.2, OMA-
@@ -498,7 +498,7 @@ Table of Contents
 Appendix A.  Detailed considerations for AEAD_AES_128_CCM_8
 
    For the AEAD_AES_128_CCM_8 algorithm when used as AEAD Algorithm for
-   OSCORE, larger IA and CA values are achieved, depending on the value
+   OSCORE, larger IA and CA values are achieved, depending on the values
    of 'q', 'v' and 'l'.  Figure 3 shows the resulting IA and CA
    probabilities enjoyed by AEAD_AES_128_CCM_8, when taking different
    values of 'q', 'v' and 'l' as input to the formulas defined in
@@ -577,35 +577,39 @@ Appendix C.  Document Updates
 
    This section is to be removed before publishing as an RFC.
 
-C.1.  Version -06 to -07
+C.1.  Version -07 to -08
+
+   *  Minor refinements.
+
+C.2.  Version -06 to -07
 
    *  Added missing references.
 
    *  Revised content.
 
-C.2.  Version -05 to -06
+C.3.  Version -05 to -06
 
    *  Minor revision.
 
-C.3.  Version -04 to -05
+C.4.  Version -04 to -05
 
    *  Editorial updates.
 
-C.4.  Version -03 to -04
+C.5.  Version -03 to -04
 
    *  Various editorial updates.
 
    *  Improved references.
 
-C.5.  Version -02 to -03
+C.6.  Version -02 to -03
 
    *  Editorial improvements.
 
-C.6.  Version -01 to -02
+C.7.  Version -01 to -02
 
    *  Updated references.
 
-C.7.  Version -00 to -01
+C.8.  Version -00 to -01
 
    *  Extended discussion on setting the lifetime of OSCORE Security
       Contexts.
@@ -622,7 +626,7 @@ C.7.  Version -00 to -01
    *  Note on relevance of 'l' limit considering maximum block size and
       typical MTU.
 
-C.8.  Version -00
+C.9.  Version -00
 
    *  Editorial improvements.
 
