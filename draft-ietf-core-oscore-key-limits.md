@@ -113,9 +113,9 @@ Therefore, in order to preserve the security of the used AEAD algorithm, OSCORE 
 
 Formulas for calculating the security levels, as Integrity Advantage (IA) and Confidentiality Advantage (CA) probabilities, are presented in {{I-D.irtf-cfrg-aead-limits}}. These formulas take as input specific values for 'q' and 'v' (see {{problem-overview}}) and for 'l', i.e., the maximum length of each message (in cipher blocks).
 
-For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, that this document recommends using for these algorithms.
+For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algorithm for OSCORE, the main property to achieve is having IA and CA values which are no larger than p = 2^-64, which will ensure a safe security level for the AEAD Algorithm. This can be achieved by using the values q = 2^20, v = 2^20, and l = 2^10, which this document recommends using for these algorithms.
 
-{{algorithm-limits}} also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the value of 'q', 'v' and 'l' above as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
+{{algorithm-limits}} also shows the resulting IA and CA probabilities enjoyed by the considered algorithms, when taking the values of 'q', 'v' and 'l' above as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
 ~~~~~~~~~~~
 +------------------------+----------------+----------------+
@@ -129,7 +129,7 @@ For the algorithms shown in {{algorithm-limits}} that can be used as AEAD Algori
 ~~~~~~~~~~~
 {: #algorithm-limits title="Probabilities for algorithms based on chosen q, v and l values." artwork-align="center"}
 
-When AEAD\_AES\_128\_CCM\_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD\_AES\_128\_CCM\_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, and thus yields an acceptable security level. Achieving smaller values of CA and IA would require inconveniently reducing 'q', 'v' or 'l', with no additional security benefit since the threshold is already met, as further elaborated in {{aead-aes-128-ccm-8-details}}.
+When AEAD\_AES\_128\_CCM\_8 is used as AEAD Algorithm for OSCORE, the triplet (q, v, l) considered above yields larger values of IA and CA. Hence, specifically for AEAD\_AES\_128\_CCM\_8, this document recommends using the triplet (q, v, l) = (2^20, 2^14, 2^8). This is appropriate, since the resulting CA and IA values are not greater than the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}, thus yielding an acceptable security level. Achieving smaller values of CA and IA would require inconveniently reducing 'q', 'v' or 'l', with no additional security benefit since the threshold is already met, as further elaborated in {{aead-aes-128-ccm-8-details}}.
 
 ~~~~~~~~~~~
 +------------------------+----------+----------+-----------+
@@ -149,7 +149,7 @@ With regards to the limit for 'l', the recommended 'l' value for the algorithms 
 
 However, although under typical circumstances an 'l' limit of 2^8 (4096 bytes) is acceptable, exceptional cases can warrant a higher value of 'l'. For instance, Block-wise Extension for Reliable Transport (BERT) extends the CoAP Block-Wise transfer functionality, enabling use of larger messages over reliable transports such as TCP or WebSockets (see {{RFC8323}}). In case the OSCORE peers wish to take full advantage of BERT functionality and the large message sizes it allows for, the OSCORE peers must use higher values of 'l'. The maximum length of each message in bytes for different values of 'l' and different AEAD algorithms is shown in {{l-values-as-bytes}}.
 
-An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the value of 'q' and 'v' considering the new value of 'l', to ensure an acceptably low value of the IA and CA probabilities. A reasonable target for the IA and CA probability values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
+An alternative means of allowing for larger values of 'l', while still maintaining the security properties of the used AEAD algorithm, is to adjust the 'q' and 'v' values to compensate. In practice, this means reducing the values of 'q' and 'v' considering the new value of 'l', to ensure acceptably low values of the IA and CA probabilities. A reasonable target for the IA and CA probability values is the threshold value of 2^-50 defined in {{I-D.irtf-cfrg-aead-limits}}.
 
 ## Additional Information in the Security Context # {#context}
 
@@ -161,7 +161,7 @@ The Common Context has the following associated parameter.
 
 * 'exp': with value the expiration time of the OSCORE Security Context, as a non-negative integer. The parameter contains a numeric value representing the number of seconds from 1970-01-01T00:00:00Z UTC until the specified UTC date/time, ignoring leap seconds, analogous to what is specified for NumericDate in {{Section 2 of RFC7519}}.
 
-   At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing messages, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer to decrypt and verify incoming messages.
+   At the time indicated by this parameter, a peer must stop using this Security Context to process any incoming or outgoing messages, and is required to establish a new Security Context to continue OSCORE-protected communications with the other peer. That is, the expiration of an OSCORE Security Context means that the current Sender Key must no longer be used for protecting outgoing messages, and the Recipient Key must no longer be used to decrypt and verify incoming messages.
 
    The value of 'exp' must be set upon installing the OSCORE Security Context, namely at time t\_1, considering a lifetime value t\_l. In particular, t\_l can be a default value (potentially differing between the two peers sharing the OSCORE Security Context), or can be agreed by the two peers during the establishment of the OSCORE Security Context. For instance, this value may be stored and/or transported in the OSCORE LwM2M object {{LwM2M}}, or specified as part of an EDHOC Application Profile {{Section 3.9 of RFC9528}} used when executing EDHOC to establish the OSCORE Security Context. Regardless of how the lifetime value is determined, the 'exp' parameter is set to indicate the point in time corresponding to t\_1 offset by t\_l.
 
@@ -231,7 +231,7 @@ This document has no IANA actions.
 
 # Detailed considerations for AEAD_AES_128_CCM_8 # {#aead-aes-128-ccm-8-details}
 
-For the AEAD\_AES\_128\_CCM\_8 algorithm when used as AEAD Algorithm for OSCORE, larger IA and CA values are achieved, depending on the value of 'q', 'v' and 'l'. {{algorithm-limits-ccm8}} shows the resulting IA and CA probabilities enjoyed by AEAD\_AES\_128\_CCM\_8, when taking different values of 'q', 'v' and 'l' as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
+For the AEAD\_AES\_128\_CCM\_8 algorithm when used as AEAD Algorithm for OSCORE, larger IA and CA values are achieved, depending on the values of 'q', 'v' and 'l'. {{algorithm-limits-ccm8}} shows the resulting IA and CA probabilities enjoyed by AEAD\_AES\_128\_CCM\_8, when taking different values of 'q', 'v' and 'l' as input to the formulas defined in {{I-D.irtf-cfrg-aead-limits}}.
 
 As shown in {{algorithm-limits-ccm8}}, it is especially possible to achieve the lowest IA = 2^-50 and a good CA = 2^-70 by considering the largest possible value of the (q, v, l) triplet equal to (2^20, 2^14, 2^8), while still keeping a good security level. Note that the value of 'l' does not impact the IA, while CA displays good values for every considered value of 'l'.
 
@@ -286,6 +286,10 @@ Thus, when protecting an outgoing message (see {{protecting-req-resp}}), the pee
 
 # Document Updates # {#sec-document-updates}
 {:removeinrfc}
+
+## Version -07 to -08 ## {#sec-07-08}
+
+* Minor refinements.
 
 ## Version -06 to -07 ## {#sec-06-07}
 
